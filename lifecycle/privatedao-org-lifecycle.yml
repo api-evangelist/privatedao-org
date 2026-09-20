@@ -1,0 +1,34 @@
+generated: '2026-09-19'
+method: searched
+source: https://agents.privatedao.org/api/health (service version), https://agents.privatedao.org/mcp initialize
+  (server version), https://privatedao.org/blind-policy-openapi.json (info.version), https://privatedao.org/developers/blind-policy-api/
+  (circuit/policy versioning), https://privatedao.org/roadmap/, https://privatedao.org/api-status/ (redirects).
+versioning:
+  scheme: mixed
+  agent_exchange:
+    mechanism: unversioned paths (/api/...); the service reports version 1.3.0 in /api/health and the OpenAPI info.version;
+      the MCP server reports 1.1.0
+    current: 1.3.0
+  blind_policy:
+    mechanism: path prefix /api/v1; OpenAPI info.version 0.1.0; proof artefacts carry circuitId private_dao_blind_policy_overlay
+      and circuitVersion groth16-v1; changing policyVersion creates a new policyCommitment and old receipts do not
+      silently upgrade
+    current: 0.1.0
+    docs: https://privatedao.org/developers/blind-policy-api/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No deprecation policy, changelog or Sunset/Deprecation header found. The Blind Policy page states policy
+    immutability (a new policyVersion never rewrites old receipts), which is a receipt-durability promise rather
+    than an API deprecation policy.
+sla:
+  url: null
+  public_uptime_target: null
+  notes: Enterprise tiers list "SLA and support" (api.privatedao.org/api/v1/commercial/checkout/status; Blind Policy
+    Enterprise "SLA and security review support") but no numeric commitment is published.
+status_page: null
+status_page_note: https://privatedao.org/api-status/ is a meta-refresh stub to /whitepaper/. GET https://agents.privatedao.org/api/health
+  is a live health endpoint (status, a2a/mcp/registry/marketplace/logistics flags, rpcAttestation), not a status
+  page.
+roadmap: https://privatedao.org/roadmap/
+deprecated_operations: []

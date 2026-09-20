@@ -1,0 +1,49 @@
+generated: '2026-09-19'
+method: searched
+source: https://agents.privatedao.org/.well-known/agent-card.json (authentication.schemes), https://agents.privatedao.org/llms.txt,
+  both OpenAPIs (no components.securitySchemes, no security requirement), https://privatedao.org/developers/blind-policy-api/
+  and /blind-policy-sdk/ (client created with baseUrl only, no credential), CORS preflight headers observed on api.privatedao.org
+  (2026-09-19).
+docs: https://agents.privatedao.org/llms.txt
+summary: 'Neither public API requires a credential. The Agent Exchange gates paid services by payment, not identity:
+  a paid createJob returns 402 with a payment_intent and is unlocked by submitting a finalized Solana mainnet USDC
+  transaction signature. The Blind Policy API console and SDK call https://api.privatedao.org/api/v1 with no key.
+  derive-authentication.py found no securitySchemes in either spec, which is why this profile is hand-written from
+  the docs rather than derived.'
+schemes:
+- id: none
+  type: none
+  apis:
+  - agent-exchange
+  - blind-policy
+  evidence: Agent Card authentication.schemes includes "none"; every GET and the free createJob services were called
+    anonymously during this pass.
+- id: solana-payment
+  type: payment-gate
+  apis:
+  - agent-exchange
+  status_code: 402
+  field: payment_intent
+  flow: POST /api/jobs -> 402 payment_intent (exact USDC quote + treasury token account) -> agent signs its own
+    finalized USDC transfer on solana:mainnet-beta -> POST /api/jobs/{jobId}/payment {signature} -> GET /api/jobs/{jobId}
+  evidence: Agent Card authentication.schemes includes "solana-payment"; workflow.paid and payment blocks; llms.txt
+    flow line.
+  note: Not a registered A2A/OpenAPI security scheme type; it authorises one job, not a caller.
+observed_undocumented:
+- header: x-private-dao-operator-token
+  host: api.privatedao.org
+  evidence: Listed in access-control-allow-headers on https://api.privatedao.org/api/v1/proof-workflows/blind-policy/status
+  note: Not documented anywhere public; presumably guards operator/anchor routes outside the published Blind Policy
+    contract. Recorded as observed only - no route requiring it was identified and none was probed.
+- header: x-private-dao-anchor-token
+  host: api.privatedao.org
+  evidence: Same CORS allow-list
+  note: As above.
+oauth2: null
+openid_connect: null
+api_keys: null
+mutual_tls: null
+cross_links:
+  conventions: conventions/privatedao-org-conventions.yml
+  conformance: conformance/privatedao-org-conformance.yml
+  a2a: a2a/privatedao-org-a2a.yml

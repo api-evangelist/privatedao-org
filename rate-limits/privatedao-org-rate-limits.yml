@@ -1,0 +1,23 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: PrivateDAO
+providerId: privatedao-org
+generated: '2026-09-19'
+method: searched
+source: Searched https://agents.privatedao.org/llms.txt, both OpenAPIs, https://privatedao.org/developers/blind-policy-api/
+  and https://privatedao.org/llms.txt; observed response headers on live 200/400/404 responses from both API hosts
+  (2026-09-19).
+description: No rate limits are documented for either API and no rate-limit headers were observed. Paid Agent Exchange
+  services are metered by price per job (see plans/), not by request quota.
+limit_count: 0
+limits: []
+headers:
+  observed:
+  - apigw-requestid (agents.privatedao.org)
+  - 'cache-control: no-store'
+  rate_limit: []
+  retry_after: false
+responseCodes:
+  throttled: null
+note: 'An honest zero: agents.privatedao.org fronts AWS API Gateway, whose default account throttles would apply
+  but are not published by the provider.'

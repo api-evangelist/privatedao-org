@@ -1,0 +1,298 @@
+generated: '2026-09-19'
+method: probed
+source: Live GET probes of the named /.well-known/* path list (plus /apis.json, /apis.yml and the two A2A card paths)
+  on privatedao.org, www.privatedao.org, agents.privatedao.org (the MCP and A2A host) and api.privatedao.org, 2026-09-19.
+  Every row is a request that was issued; every status is the one returned.
+summary:
+  hosts_probed: 4
+  paths_probed: 56
+  documents_served: 4
+  note: 'Two real documents: an RFC 9116 security.txt served identically on privatedao.org and api.privatedao.org,
+    and an A2A Agent Card on agents.privatedao.org at both the canonical and legacy paths. No OAuth/OIDC discovery
+    anywhere - the APIs are unauthenticated and paid per job in USDC - and no RFC 9728 protected-resource metadata
+    on the MCP host, which returns a real JSON 404 for every other well-known path. privatedao.org and api.privatedao.org
+    are one Next.js deployment that answers 200 text/html for every unknown path, so every non-security.txt row
+    on those hosts is a soft-404 and is marked real_document: false. www.privatedao.org 301s to the apex.'
+hosts:
+- host: privatedao.org
+  role: Website, llms.txt, ai.json/evidence.json/ownership.json manifests and the Blind Policy OpenAPI (/blind-policy-openapi.json)
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain; charset=utf-8
+    file: privatedao-org-security.txt
+    standard: RFC 9116
+    note: 'Real document: Contact mailto:fahd@privatedao.org, Policy https://privatedao.org/security/, Expires 2027-09-19.'
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/api-catalog
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/ucp.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/acp.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/apis.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /apis.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /apis.yml
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+- host: www.privatedao.org
+  role: Redirect host
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/security.txt
+  - path: /.well-known/openid-configuration
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/openid-configuration
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/oauth-authorization-server
+  - path: /.well-known/oauth-protected-resource
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/oauth-protected-resource
+  - path: /.well-known/api-catalog
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/api-catalog
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/ai-plugin.json
+  - path: /.well-known/ucp.json
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/ucp.json
+  - path: /.well-known/acp.json
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/acp.json
+  - path: /.well-known/aauth-resource.json
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/aauth-resource.json
+  - path: /.well-known/apis.json
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/apis.json
+  - path: /apis.json
+    status: 301
+    note: 301 to https://privatedao.org/apis.json
+  - path: /apis.yml
+    status: 301
+    note: 301 to https://privatedao.org/apis.yml
+  - path: /.well-known/agent-card.json
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/agent-card.json
+  - path: /.well-known/agent.json
+    status: 301
+    note: 301 to https://privatedao.org/.well-known/agent.json
+- host: agents.privatedao.org
+  role: Agent Exchange API host, A2A endpoint (/a2a) and MCP endpoint (/mcp)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/openid-configuration
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/api-catalog
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/ucp.json
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/acp.json
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/apis.json
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /apis.json
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /apis.yml
+    status: 404
+    content_type: application/json; charset=utf-8
+    note: '{"error":"not_found"}'
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: ../a2a/privatedao-org-agent-card.json
+    standard: A2A 1.0.0 Agent Card
+    note: Real A2A Agent Card, graded in a2a/privatedao-org-a2a.yml.
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: ../a2a/privatedao-org-agent-card.json
+    standard: A2A (legacy path)
+    note: Byte-identical to /.well-known/agent-card.json.
+- host: api.privatedao.org
+  role: Blind Policy Verification API host (/api/v1); same SPA deployment as the apex for non-API paths
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain; charset=utf-8
+    file: privatedao-org-security.txt
+    standard: RFC 9116
+    note: 'Real document: Contact mailto:fahd@privatedao.org, Policy https://privatedao.org/security/, Expires 2027-09-19.'
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/api-catalog
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/ucp.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/acp.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/apis.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /apis.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /apis.yml
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html; charset=utf-8
+    real_document: false
+    result: spa-shell
+    note: 60,704-byte text/html SPA catch-all shell (identical body to /nonexistent-zzz) - soft-404, not a document.

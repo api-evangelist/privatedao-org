@@ -1,0 +1,59 @@
+generated: '2026-09-19'
+method: derived
+format: custom-json
+source: Observed on live unauthenticated responses from agents.privatedao.org and api.privatedao.org (2026-09-19),
+  the 402 flow documented in the Agent Card workflow block and llms.txt, and the 422 responses declared in openapi/privatedao-org-blind-policy-openapi.yml.
+  The Agent Exchange OpenAPI declares no responses at all.
+envelopes:
+- host: agents.privatedao.org
+  media_type: application/json
+  shape: '{ "error": string, "message"?: string }'
+  observed:
+  - '{"error":"not_found"}'
+  - '{"error":"request_failed","message":"unknown service"}'
+- host: api.privatedao.org
+  media_type: application/json
+  shape: '{ "ok": false, "error": string }'
+  observed:
+  - '{"ok":false,"error":"Unknown route: /api/v1/nonexistent"}'
+problems:
+- status: 400
+  code: request_failed
+  title: Request failed
+  meaning: The job body was rejected - observed for an unknown or missing service_id.
+  remediation: Use a service_id from GET /api/services.
+  api: agent-exchange
+  observed: true
+- status: 402
+  code: payment_required
+  title: Payment required
+  meaning: A paid service_id was submitted to POST /api/jobs; the response carries a payment_intent (exact USDC
+    quote, treasury token account) - documented, not observed, because observing it would create a paid job.
+  remediation: Read payment_intent, send the exact finalized Solana Mainnet USDC amount, then POST /api/jobs/{jobId}/payment
+    with the transaction signature and poll GET /api/jobs/{jobId}.
+  api: agent-exchange
+  observed: false
+  docs: https://agents.privatedao.org/llms.txt
+- status: 404
+  code: not_found
+  title: Not found
+  meaning: Unknown route, jobId, agreementId or receiptId.
+  api: agent-exchange
+  observed: true
+- status: 404
+  code: Unknown route
+  title: Unknown route
+  meaning: Unknown /api/v1 path on the Blind Policy host.
+  api: blind-policy
+  observed: true
+- status: 422
+  title: Unprocessable
+  meaning: 'Declared on prove, verify and onchain-receipt in the Blind Policy OpenAPI. The status endpoint states
+    the issue rules: no proof is issued if membership is not verified, required private records are missing, the
+    policy is not satisfied, or Groth16 generation/verification fails; verify returns match or mismatch.'
+  api: blind-policy
+  observed: false
+  docs: https://privatedao.org/developers/blind-policy-api/
+cross_links:
+  conventions: conventions/privatedao-org-conventions.yml
+  lifecycle: lifecycle/privatedao-org-lifecycle.yml

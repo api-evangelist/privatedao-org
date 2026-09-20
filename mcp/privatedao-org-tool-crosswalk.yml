@@ -1,0 +1,201 @@
+generated: '2026-09-19'
+method: derived
+source: Live tools/list from https://agents.privatedao.org/mcp (11 tools, empty inputSchemas) aligned by name and
+  by the Agent Card workflow block with the provider OpenAPI at openapi/privatedao-org-agent-exchange-openapi.yml
+  (21 operations, operationIds only - no parameters, requestBodies or schemas are published). The A2A skills (15)
+  are the service_id values accepted by createJob.
+purpose: 'The MCP tools carry no schema and the OpenAPI carries no parameters, so neither surface alone tells an
+  agent what to send. This crosswalk binds each tool to its REST operation and points at the only published input
+  description: the /api/services catalog (input/output prose per service) and the Agent Card workflow.freeTest.exampleBody.'
+surfaces:
+  rest_openapi: openapi/privatedao-org-agent-exchange-openapi.yml
+  rest_openapi_remote: https://agents.privatedao.org/openapi.json
+  mcp: https://agents.privatedao.org/mcp
+  mcp_gated: false
+  a2a: https://agents.privatedao.org/a2a
+  a2a_gated: false
+  service_catalog: https://agents.privatedao.org/api/services
+  graphql: null
+crosswalk:
+- tool: pdao_services
+  category: catalog
+  rest:
+  - services
+  binding: rest
+  confidence: high
+- tool: verify_basic
+  category: verification
+  rest:
+  - createJob
+  binding: rest
+  confidence: high
+  note: createJob with service_id verify.basic (free) - result and receipt are returned inline; fetch the receipt
+    via getReceipt.
+- tool: create_paid_job
+  category: jobs
+  rest:
+  - createJob
+  binding: rest
+  confidence: high
+  note: createJob with any paid service_id; expect HTTP 402 carrying payment_intent (see conventions/).
+- tool: submit_payment
+  category: jobs
+  rest:
+  - submitPayment
+  binding: rest
+  confidence: high
+  note: POST /api/jobs/{jobId}/payment with the finalized Solana transaction signature.
+- tool: job_status
+  category: jobs
+  rest:
+  - jobStatus
+  binding: rest
+  confidence: high
+- tool: get_receipt
+  category: receipts
+  rest:
+  - getReceipt
+  binding: rest
+  confidence: high
+- tool: search_agents
+  category: registry
+  rest:
+  - searchAgents
+  binding: rest
+  confidence: high
+- tool: register_agent
+  category: registry
+  rest:
+  - registerAgent
+  binding: rest
+  confidence: high
+- tool: agent_match
+  category: registry
+  rest:
+  - createJob
+  binding: rest
+  confidence: medium
+  note: agent.match is a paid SERVICE in the catalog (0.10 USDC), so the tool most plausibly wraps createJob with
+    service_id agent.match rather than a dedicated route; no /api/agents/match path exists in the spec.
+- tool: logistics_request
+  category: logistics
+  rest:
+  - requestLogistics
+  binding: rest
+  confidence: high
+- tool: network_stats
+  category: telemetry
+  rest:
+  - health
+  - treasuryStatus
+  - revenueSummary
+  binding: rest
+  confidence: low
+  note: No single "stats" route in the spec; the read-only telemetry routes are health, treasuryStatus and revenueSummary.
+    Mapped by semantics only.
+a2a_skills_to_rest:
+  note: Every A2A skill id is a createJob service_id; A2A message/send returned a Task whose artifact was the service
+    catalog ("discovery"), so the A2A surface is a projection of the same job engine.
+  skills:
+  - skill: verify.basic
+    rest:
+    - createJob
+    access: free
+    price_usdc: 0
+  - skill: verify.deep
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.25
+  - skill: token.intelligence
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.03
+  - skill: risk.score
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.02
+  - skill: wallet.intelligence
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.05
+  - skill: contract.inspect
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.08
+  - skill: launch.check
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.03
+  - skill: market.snapshot
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.01
+  - skill: decision.context
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.1
+  - skill: receipt.verify
+    rest:
+    - createJob
+    access: free
+    price_usdc: 0
+  - skill: forensics.trace
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.75
+  - skill: agent.match
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 0.1
+  - skill: sponsored.discovery
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 5
+  - skill: intelligence.synthesize
+    rest:
+    - createJob
+    access: paid
+    price_usdc: 1
+mcp_only: []
+rest_only:
+- operationId: pricing
+  reason: no MCP tool exposes this route
+- operationId: discovery
+  reason: no MCP tool exposes this route
+- operationId: acquisition
+  reason: no MCP tool exposes this route
+- operationId: createReferral
+  reason: no MCP tool exposes this route
+- operationId: searchListings
+  reason: no MCP tool exposes this route
+- operationId: publishListing
+  reason: no MCP tool exposes this route
+- operationId: logisticsCapabilities
+  reason: no MCP tool exposes this route
+- operationId: createAgreement
+  reason: no MCP tool exposes this route
+- operationId: getAgreement
+  reason: no MCP tool exposes this route
+- operationId: acceptAgreement
+  reason: no MCP tool exposes this route
+coverage:
+  mcp_tools: 11
+  bound_to_rest: 11
+  rest_operations: 21
+  rest_with_tool: 11
+  rest_only: 10
+gaps:
+- The Agent Card workflow names GET /api/jobs/{jobId}/payment-intent, which is absent from the OpenAPI.
+- The OpenAPI has no parameters, requestBodies, responses or components - it is an operation index, not a contract
+  an agent can validate against.

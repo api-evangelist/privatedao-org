@@ -1,0 +1,5 @@
+Contact: mailto:fahd@privatedao.org
+Policy: https://privatedao.org/security/
+Preferred-Languages: en, ar
+Canonical: https://privatedao.org/.well-known/security.txt
+Expires: 2027-09-19T00:00:00.000Z

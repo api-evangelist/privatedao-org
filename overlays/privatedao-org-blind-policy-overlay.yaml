@@ -1,0 +1,48 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the PrivateDAO Blind Policy Verification OpenAPI
+  version: '2026-09-19'
+  description: The provider document declares no operationIds and no tags. This overlay assigns stable operationIds
+    (used by skills/ and data-model/) and one tag, and adds the docs URL. Nothing else is changed.
+extends: openapi/privatedao-org-blind-policy-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source:
+- https://privatedao.org/blind-policy-openapi.json
+- https://privatedao.org/developers/blind-policy-api/
+actions:
+- target: $.info
+  update:
+    contact:
+      name: PrivateDAO
+      url: https://privatedao.org/contact/
+- target: $
+  update:
+    externalDocs:
+      url: https://privatedao.org/developers/blind-policy-api/
+      description: Interactive API console and technical verification notes
+- target: $.paths['/proof-workflows/blind-policy/status'].get
+  update:
+    operationId: getBlindPolicyStatus
+    tags:
+    - Blind Policy
+- target: $.paths['/proof-workflows/blind-policy/sample'].get
+  update:
+    operationId: getBlindPolicySample
+    tags:
+    - Blind Policy
+- target: $.paths['/proof-workflows/blind-policy/prove'].post
+  update:
+    operationId: proveBlindPolicy
+    tags:
+    - Blind Policy
+- target: $.paths['/proof-workflows/blind-policy/verify'].post
+  update:
+    operationId: verifyBlindPolicy
+    tags:
+    - Blind Policy
+- target: $.paths['/proof-workflows/blind-policy/onchain-receipt'].post
+  update:
+    operationId: storeBlindPolicyOnchainReceipt
+    tags:
+    - Blind Policy

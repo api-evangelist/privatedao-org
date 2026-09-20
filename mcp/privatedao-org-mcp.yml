@@ -1,0 +1,108 @@
+generated: '2026-09-19'
+method: probed
+status: published
+source: https://agents.privatedao.org/mcp (POST initialize + tools/list, 2026-09-19); advertised in the Agent Card
+  protocols.mcp and in https://agents.privatedao.org/llms.txt
+docs: https://agents.privatedao.org/llms.txt
+summary: 'PrivateDAO hosts one remote MCP server on the Agent Exchange host. An anonymous initialize returns protocolVersion
+  2025-03-26, serverInfo pdao-agent-exchange 1.1.0 and capabilities {tools:{}}; tools/list returns 11 tools. Every
+  tool ships an EMPTY inputSchema ({type: object, additionalProperties: false}) and a placeholder description ("PrivateDAO
+  <tool_name>"), so the server is reachable but its tools are not self-describing - an agent must read the OpenAPI/service
+  catalog (see mcp/privatedao-org-tool-crosswalk.yml) to know what to send.'
+deployment:
+  mode: remote
+  endpoint: https://agents.privatedao.org/mcp
+  auth: none
+  verified: probed
+  note: 'Hosted HTTPS endpoint an MCP client POSTs to directly; no stdio package, no npx/uvx install documented
+    anywhere. Unauthenticated: paid tools return the same 402 payment_intent flow as the REST API rather than requiring
+    a credential.'
+server:
+  name: pdao-agent-exchange
+  transport: http
+  url: https://agents.privatedao.org/mcp
+  probe:
+    method: POST initialize; POST tools/list
+    http_status: 200
+    protocol_version: '2025-03-26'
+    server_version: 1.1.0
+    fetched: '2026-09-19'
+    get_behaviour: GET /mcp returns the A2A Agent Card JSON (200) rather than an SSE stream
+tools:
+- name: pdao_services
+  description: PrivateDAO pdao_services
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: verify_basic
+  description: PrivateDAO verify_basic
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: create_paid_job
+  description: PrivateDAO create_paid_job
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: submit_payment
+  description: PrivateDAO submit_payment
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: job_status
+  description: PrivateDAO job_status
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: get_receipt
+  description: PrivateDAO get_receipt
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: search_agents
+  description: PrivateDAO search_agents
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: register_agent
+  description: PrivateDAO register_agent
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: agent_match
+  description: PrivateDAO agent_match
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: logistics_request
+  description: PrivateDAO logistics_request
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: network_stats
+  description: PrivateDAO network_stats
+  input_schema:
+    type: object
+    additionalProperties: false
+  input_schema_note: empty as served
+  crosswalk: mcp/privatedao-org-tool-crosswalk.yml

@@ -1,0 +1,324 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+provider: PrivateDAO
+providerId: privatedao-org
+generated: '2026-09-19'
+method: probed
+source: https://agents.privatedao.org/api/pricing and /api/services (per-job USDC prices, machine-readable), https://api.privatedao.org/api/v1/commercial/checkout/status
+  (commercial plans), https://api.privatedao.org/api/v1/proof-workflows/blind-policy/status (Blind Policy packages).
+  https://privatedao.org/pricing/ is a meta-refresh stub to /contact/, so no human pricing page exists.
+description: 'Three price lists: (1) Agent Exchange - 14 services priced per job in USDC on Solana mainnet, two
+  of them free; (2) commercial SaaS plans for Proof Workflows / Private Governance / Treasury Coordination, USD
+  monthly/annual, crypto or invoice payment (trialDays 7 per the endpoint, "14-day trial" per the Community plan
+  text); (3) Blind Policy Verification packages.'
+plan_count: 21
+payment_methods:
+  agent_exchange: USDC on solana:mainnet-beta, quote-first, finalized transaction
+  commercial:
+    bankTransfer: Invoice-led through official PrivateDAO contacts.
+    crypto:
+    - USDC_SOL
+    - PDAO_SOL
+    - USDC_ETH
+    - SOL
+    - ETH
+    - BTC
+    - WBTC
+    - ZEC
+    - USDT
+    - DAI
+plans:
+- id: agent-exchange-verify-basic
+  name: Basic verification
+  type: usage-based
+  description: JSON evidence -> canonical digest and receipt
+  entries:
+  - label: Basic verification
+    name: verify.basic
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0 USDC per job
+    currency: USDC
+    access: free
+- id: agent-exchange-verify-deep
+  name: Deep verification
+  type: usage-based
+  description: JSON evidence and rules -> verified receipt and checks
+  entries:
+  - label: Deep verification
+    name: verify.deep
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.25 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-token-intelligence
+  name: Token intelligence
+  type: usage-based
+  description: Solana mint -> mint, supply, holders and metadata evidence
+  entries:
+  - label: Token intelligence
+    name: token.intelligence
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.03 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-risk-score
+  name: Risk score
+  type: usage-based
+  description: Solana mint -> machine-readable risk factors and confidence
+  entries:
+  - label: Risk score
+    name: risk.score
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.02 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-wallet-intelligence
+  name: Wallet intelligence
+  type: usage-based
+  description: Solana wallet -> bounded public-chain activity evidence
+  entries:
+  - label: Wallet intelligence
+    name: wallet.intelligence
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.05 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-contract-inspect
+  name: Program inspection
+  type: usage-based
+  description: Solana program -> account owner and executable-state evidence
+  entries:
+  - label: Program inspection
+    name: contract.inspect
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.08 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-launch-check
+  name: Launch check
+  type: usage-based
+  description: Solana mint -> pre-decision launch evidence
+  entries:
+  - label: Launch check
+    name: launch.check
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.03 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-market-snapshot
+  name: Market snapshot
+  type: usage-based
+  description: Solana mint -> current on-chain supply and holder snapshot
+  entries:
+  - label: Market snapshot
+    name: market.snapshot
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.01 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-decision-context
+  name: Decision context
+  type: usage-based
+  description: structured evidence -> deterministic evidence context
+  entries:
+  - label: Decision context
+    name: decision.context
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.1 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-receipt-verify
+  name: Receipt verification
+  type: usage-based
+  description: receipt and expected hash -> receipt integrity result
+  entries:
+  - label: Receipt verification
+    name: receipt.verify
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0 USDC per job
+    currency: USDC
+    access: free
+- id: agent-exchange-forensics-trace
+  name: Solana transaction trace
+  type: usage-based
+  description: public Solana address -> read-only transaction summary
+  entries:
+  - label: Solana transaction trace
+    name: forensics.trace
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.75 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-agent-match
+  name: Agent capability matching
+  type: usage-based
+  description: capabilities and context -> ranked registry matches
+  entries:
+  - label: Agent capability matching
+    name: agent.match
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 0.1 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-sponsored-discovery
+  name: Sponsored machine discovery
+  type: usage-based
+  description: verified Agent Card and targeting -> explicit sponsored placement
+  entries:
+  - label: Sponsored machine discovery
+    name: sponsored.discovery
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 5 USDC per job
+    currency: USDC
+    access: paid
+- id: agent-exchange-intelligence-synthesize
+  name: Evidence synthesis
+  type: usage-based
+  description: structured evidence -> structured synthesis and receipt
+  entries:
+  - label: Evidence synthesis
+    name: intelligence.synthesize
+    type: metered
+    metric: job
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    price: 1 USDC per job
+    currency: USDC
+    access: paid
+- id: commercial-community
+  name: Community Trial
+  type: free
+  price: 0
+  currency: USD
+  billing_period: free
+  included:
+  - 14-day trial
+  - 1 room
+  - 10 members
+  - 5 proposals
+  - Limited proof records
+- id: commercial-starter
+  name: Starter (PROFESSIONAL)
+  type: subscription
+  price: 1000
+  currency: USD
+  billing_period: monthly
+  included:
+  - 3 active workflows or rooms
+  - 25 members
+  - 100 proof events/month
+  - Basic verification pages
+- id: commercial-business
+  name: Business (ORGANIZATION)
+  type: subscription
+  price: 3500
+  currency: USD
+  billing_period: monthly
+  included:
+  - 10 active workflows or rooms
+  - 250 members
+  - 2,500 proof events/month
+  - Priority onboarding
+- id: commercial-enterprise
+  name: Enterprise
+  type: subscription
+  price: 25000
+  currency: USD
+  billing_period: annual
+  included:
+  - Private deployment
+  - Custom connectors
+  - Custom proof packages
+  - SLA and support
+- id: blind-policy-pilot
+  name: Blind Policy Pilot
+  type: subscription
+  price: $10,000 setup + $3,500/month
+  currency: USD
+  billing_period: monthly
+  included:
+  - 1 private policy template
+  - Private proof generation
+  - Shareable verification page
+  - Verification status and records
+  - 2,500 blind policy proofs/month
+  - Pilot onboarding and policy mapping
+- id: blind-policy-business
+  name: Blind Policy Business
+  type: subscription
+  price: 7500
+  currency: USD
+  billing_period: monthly
+  included:
+  - Up to 5 active private policies
+  - 10,000 proof events/month
+  - Custom proof package labels
+  - Audit-ready verification reports
+  - Intelligence summaries optional
+  - Priority support
+- id: blind-policy-enterprise
+  name: Blind Policy Enterprise
+  type: subscription
+  price: From $25,000/month
+  currency: USD
+  billing_period: monthly
+  included:
+  - Dedicated deployment
+  - Custom policy circuits
+  - Customer data connector
+  - Custom verification domain
+  - SLA and security review support
+  - Annual private deployment option

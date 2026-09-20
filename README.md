@@ -64,5 +64,5 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-PrivateDAO is a company surfaced via the API Evangelist harvest backlog (source: a2a-registry) and added to the network as a stub for full-pipeline profiling.
+PrivateDAO (X-PACT) sells privacy-and-proof infrastructure for organizations: confidential payroll, treasury coordination, private governance, sealed auctions and blind/record verification that keep the underlying data private while producing a verifiable outcome. Two public APIs are published: the Agent Exchange on agents.privatedao.org (an unauthenticated, pay-per-job USDC-on-Solana service marketplace exposed over REST, a live A2A agent and a hosted MCP server) and the Blind Policy Verification API on api.privatedao.org (Groth16 zero-knowledge proofs that a private policy was satisfied).
 - https://privatedao.org/

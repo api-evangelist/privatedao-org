@@ -1,0 +1,144 @@
+generated: '2026-09-19'
+method: derived
+source: Derived from the Blind Policy OpenAPI components.schemas (BlindPolicyPrivateInputs, BlindPolicyProofPackage)
+  and from the resource paths and id path-parameters of the Agent Exchange OpenAPI (which publishes no schemas),
+  plus the observed shapes of /api/services, /api/marketplace/listings, /api/treasury/status and the Agent Card
+  workflow. Relationship confidence is stated per edge.
+render: null
+entities:
+- name: Service
+  api: agent-exchange
+  id_field: id (dotted, e.g. verify.basic)
+  fields_observed:
+  - id
+  - title
+  - price
+  - currency
+  - access
+  - input
+  - output
+  - free
+  - paymentAssets
+  - receipt
+  source: /api/services, /api/acquisition
+- name: Job
+  api: agent-exchange
+  id_field: jobId
+  fields_documented:
+  - service_id
+  - input
+  - result
+  - receipt
+  - payment_intent
+  source: POST /api/jobs; Agent Card workflow
+- name: PaymentIntent
+  api: agent-exchange
+  fields_documented:
+  - exact USDC amount
+  - treasury token account
+  source: Agent Card workflow.paid (GET /api/jobs/{jobId}/payment-intent - not in the OpenAPI)
+- name: Receipt
+  api: agent-exchange
+  id_field: receiptId
+  source: GET /api/receipts/{receiptId}
+- name: Agent
+  api: agent-exchange
+  source: POST /api/registry/register, GET /api/registry/search
+- name: Listing
+  api: agent-exchange
+  id_field: id (e.g. pdao_verify.basic)
+  fields_observed:
+  - id
+  - agentId
+  - provider
+  - service
+  - description
+  - capabilities
+  - protocols
+  - chains
+  - networkCapabilities
+  source: /api/marketplace/listings
+- name: Agreement
+  api: agent-exchange
+  id_field: agreementId
+  source: /api/agreements, /api/agreements/{agreementId}, /accept
+- name: Referral
+  api: agent-exchange
+  source: POST /api/referrals
+- name: LogisticsRequest
+  api: agent-exchange
+  source: POST /api/logistics/request
+- name: Treasury
+  api: agent-exchange
+  fields_observed:
+  - network
+  - owner
+  - usdcMint
+  - usdcAta
+  - solLamports
+  - usdc
+  - usdcStatus
+  - recentSignatures
+  source: /api/treasury/status
+- name: BlindPolicyPrivateInputs
+  api: blind-policy
+  schema: openapi/privatedao-org-blind-policy-openapi.yml#/components/schemas/BlindPolicyPrivateInputs
+  fields:
+  - organizationId
+  - subjectId
+  - membershipVerified
+  - records
+  - riskScore
+  - liabilitiesUsd
+- name: BlindPolicyProofPackage
+  api: blind-policy
+  schema: openapi/privatedao-org-blind-policy-openapi.yml#/components/schemas/BlindPolicyProofPackage
+  fields:
+  - proofId
+  - nonce
+  - issuedAt
+  - expiresAt
+  - circuitId
+  - circuitVersion
+  - policyVersion
+  - policyCommitment
+  - inputCommitment
+  - verificationKeyHash
+  - originalProofHash
+  - groth16Proof
+relationships:
+- from: Job
+  to: Service
+  type: belongs_to
+  via: service_id
+  confidence: high
+- from: Job
+  to: PaymentIntent
+  type: has_one
+  via: jobId (payment-intent route)
+  confidence: high
+- from: Job
+  to: Receipt
+  type: has_one
+  via: receipt / receiptId
+  confidence: high
+- from: Listing
+  to: Agent
+  type: belongs_to
+  via: agentId
+  confidence: high
+- from: Listing
+  to: Service
+  type: belongs_to
+  via: service
+  confidence: high
+- from: Agreement
+  to: Agent
+  type: belongs_to
+  via: unknown - no schema published
+  confidence: low
+- from: BlindPolicyProofPackage
+  to: BlindPolicyPrivateInputs
+  type: derived_from
+  via: inputCommitment (Poseidon commitment; inputs never leave the prover)
+  confidence: high

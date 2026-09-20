@@ -1,0 +1,28 @@
+generated: '2026-09-19'
+method: searched
+source: https://privatedao.org/developers/blind-policy-sdk/; registry.npmjs.org/@privatedao%2Fblind-policy (404)
+  and npm search for "privatedao"/"@privatedao" (0 results); PyPI privatedao (404); crates.io search (403); GitHub
+  org X-PACT (PrivateDAO-public, confidential-payroll, goldrush-agent-skills).
+note: 'One first-party SDK is described but NOT released to any registry: the SDK page states that a public npm
+  release should be claimed only after the package is actually released, and that today it is ready for private
+  pilot distribution. The main implementation repo (github.com/X-PACT/PrivateDAO) is private (404), so the in-repo
+  packages/blind-policy-sdk path is not publicly fetchable either. X-PACT/goldrush-agent-skills is a republication
+  of Covalent GoldRush''s MIT skill files, not a PrivateDAO client, and X-PACT/confidential-payroll is a Zama fhEVM
+  hackathon dApp (Solidity + Vue), not an SDK. No SDKs pointer is emitted because nothing is installable.'
+packages:
+- language: typescript
+  name: '@privatedao/blind-policy'
+  registry: npm
+  official: true
+  published_publicly: false
+  url: null
+  install: null
+  repository: https://github.com/X-PACT/PrivateDAO (private) - packages/blind-policy-sdk
+  version: null
+  published: null
+  version_note: registry.npmjs.org/@privatedao/blind-policy returned 404 on 2026-09-19; the provider says the package
+    is pilot-only and not yet on npm.
+  entry_point: 'createBlindPolicyClient({ baseUrl: "https://api.privatedao.org/api/v1" }) -> client.prove / client.verify
+    / client.submitOnchainReceipt'
+  docs: https://privatedao.org/developers/blind-policy-sdk/
+  api: blind-policy

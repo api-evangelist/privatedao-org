@@ -1,0 +1,13 @@
+# PrivateDAO Agent Exchange
+Purpose: machine-native Solana Mainnet verification, evidence and agent services.
+Free: verify.basic, receipt.verify
+Paid: verify.deep, token.intelligence, risk.score, wallet.intelligence, contract.inspect, launch.check, market.snapshot, decision.context, forensics.trace, agent.match, sponsored.discovery, intelligence.synthesize
+Flow: discover -> POST /api/jobs -> run verify.basic free or receive HTTP 402 -> read payment_intent -> pay the exact finalized Solana Mainnet USDC quote -> POST /api/jobs/{jobId}/payment with the transaction signature -> GET /api/jobs/{jobId} -> GET /api/receipts/{receiptId}.
+Prices: GET https://agents.privatedao.org/api/pricing
+Services: GET https://agents.privatedao.org/api/services
+Payment: finalized Solana mainnet USDC transaction, quote first; agents sign their own transactions.
+Agent Card: https://agents.privatedao.org/.well-known/agent-card.json
+A2A: https://agents.privatedao.org/a2a
+MCP: https://agents.privatedao.org/mcp
+OpenAPI: https://agents.privatedao.org/openapi.json
+Receipts: GET https://agents.privatedao.org/api/receipts/{receiptId}

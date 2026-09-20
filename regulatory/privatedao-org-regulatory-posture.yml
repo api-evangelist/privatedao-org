@@ -1,0 +1,40 @@
+generated: '2026-09-19'
+method: searched
+probe: true
+signals: {}
+note: Harvest-only. No SBOM, support-lifetime statement, accessibility conformance report, AI transparency notice,
+  GPC statement, DSR route, subprocessor table, DPA, data-residency doc, incident SLA, age-assurance, notice-and-action,
+  transparency report or exit/export doc was found. /security/ names AWS, Supabase and Solana as infrastructure
+  in prose, which is not a dated subprocessor table. /privacy/ is a redirect stub ("Privacy route consolidated").
+  /compliance/ and /trust/ meta-refresh to /whitepaper/.
+probes:
+- url: https://privatedao.org/accessibility/
+  status: 200
+  result: spa-shell
+- url: https://privatedao.org/legal/subprocessors
+  status: 200
+  result: spa-shell
+- url: https://privatedao.org/legal/dpa
+  status: 200
+  result: spa-shell
+- url: https://privatedao.org/privacy/
+  status: 200
+  result: redirect-stub page, no policy text
+- url: https://privatedao.org/transparency
+  status: 200
+  result: spa-shell
+- url: https://privatedao.org/security/sbom
+  status: 200
+  result: spa-shell
+- url: https://privatedao.org/compliance/
+  status: 200
+  result: meta-refresh to /whitepaper/
+- url: https://privatedao.org/trust/
+  status: 200
+  result: meta-refresh to /whitepaper/
+- url: https://privatedao.org/security/
+  status: 200
+  result: 'real page: security posture, custody, remediation notes - no SBOM/subprocessor/DPA'
+- url: https://privatedao.org/legal/
+  status: 200
+  result: 'real page: IP/authorship legal notice, AGPL-3.0-or-later code boundary - not a DPA or ToS'

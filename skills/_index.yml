@@ -1,0 +1,41 @@
+generated: '2026-09-19'
+method: generated
+note: 'No provider-authored skills found: X-PACT/goldrush-agent-skills is Covalent GoldRush''s MIT skill set republished,
+  not PrivateDAO''s, and PrivateDAO-public carries only README/SECURITY. Skills below are generated from the two
+  provider OpenAPIs, the Agent Card workflow and llms.txt.'
+skills:
+- file: privatedao-org-run-free-verification.md
+  name: Run a free verification job on the PrivateDAO Agent Exchange
+  api: openapi/privatedao-org-agent-exchange-openapi.yml
+  operations:
+  - services
+  - createJob
+  - getReceipt
+- file: privatedao-org-pay-for-a-job.md
+  name: Create and pay for a paid Agent Exchange job in USDC
+  api: openapi/privatedao-org-agent-exchange-openapi.yml
+  operations:
+  - services
+  - pricing
+  - createJob
+  - submitPayment
+  - jobStatus
+  - getReceipt
+- file: privatedao-org-register-and-discover-agents.md
+  name: Register an agent and search the Agent Exchange registry
+  api: openapi/privatedao-org-agent-exchange-openapi.yml
+  operations:
+  - registerAgent
+  - searchAgents
+  - searchListings
+  - publishListing
+  - logisticsCapabilities
+- file: privatedao-org-blind-policy-prove-and-verify.md
+  name: Prove and verify a Blind Policy decision
+  api: openapi/privatedao-org-blind-policy-openapi.yml
+  operations:
+  - getBlindPolicyStatus
+  - getBlindPolicySample
+  - proveBlindPolicy
+  - verifyBlindPolicy
+  - storeBlindPolicyOnchainReceipt

@@ -1,0 +1,117 @@
+generated: '2026-09-19'
+method: derived
+source: Derived from both OpenAPIs, the Agent Card workflow/payment blocks, https://agents.privatedao.org/llms.txt,
+  and response headers observed on live unauthenticated requests (2026-09-19). Neither API publishes a conventions/reference
+  page.
+description: Cross-cutting runtime semantics for the PrivateDAO Agent Exchange API (agents.privatedao.org) and Blind
+  Policy Verification API (api.privatedao.org/api/v1).
+base_urls:
+  agent-exchange: https://agents.privatedao.org
+  blind-policy: https://api.privatedao.org/api/v1
+authentication:
+  style: none
+  detail: 'No API keys, no OAuth. The Agent Card declares authentication.schemes [none, solana-payment]: paid Agent
+    Exchange services are gated by a per-job USDC payment on Solana mainnet, not by identity. api.privatedao.org''s
+    CORS allow-list names x-private-dao-operator-token and x-private-dao-anchor-token, which are not documented
+    anywhere and are recorded as observed-only in authentication/.'
+  artifact: authentication/privatedao-org-authentication.yml
+payment_gate:
+  status: 402
+  field: payment_intent
+  flow:
+  - POST /api/jobs {service_id, input}
+  - 402 -> read payment_intent (exact USDC quote, treasury token account)
+  - agent signs and sends its own finalized Solana mainnet-beta USDC transaction
+  - POST /api/jobs/{jobId}/payment {signature}
+  - GET /api/jobs/{jobId} until complete
+  - GET /api/receipts/{receiptId}
+  quote_first: true
+  finalized_transaction_required: true
+  custody: receive-only treasury; the paying agent signs its own transaction
+  source: Agent Card payment/workflow blocks
+idempotency:
+  coverage: none
+  header: null
+  scope: []
+  retention: null
+  notes: No idempotency key is documented for POST /api/jobs, POST /api/jobs/{jobId}/payment, registerAgent, publishListing,
+    createAgreement, createReferral, requestLogistics or the Blind Policy prove/verify/onchain-receipt routes. The
+    Blind Policy proof package embeds proofId, nonce, issuedAt and expiresAt for REPLAY protection on verification
+    - that protects the verifier, it does not make a repeated prove or createJob call safe.
+pagination:
+  style: none
+  notes: No page/cursor/limit parameters are declared; /api/marketplace/listings returned the full list (23.8 KB);
+    /api/registry/search takes ?q= only.
+field_expansion: null
+sparse_fields: null
+metadata: null
+request_tracing:
+  header: apigw-requestid
+  notes: Returned by agents.privatedao.org (AWS API Gateway); no client-supplied correlation header is documented.
+    api.privatedao.org (Caddy) returns no request id.
+versioning:
+  agent-exchange: unversioned paths; service version 1.3.0 in /api/health
+  blind-policy: /api/v1 path prefix; proof packages carry circuitVersion groth16-v1 and policyVersion
+  artifact: lifecycle/privatedao-org-lifecycle.yml
+error_envelope:
+  agent-exchange: '{"error": string, "message"?: string}'
+  blind-policy: '{"ok": false, "error": string}'
+  problem_json: false
+  artifact: errors/privatedao-org-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  notes: No RateLimit-*/X-RateLimit-*/Retry-After headers on any observed response; no documented limits.
+  artifact: rate-limits/privatedao-org-rate-limits.yml
+dry_run:
+  mode: partial
+  notes: verify.basic and receipt.verify are free real calls, and GET /api/v1/proof-workflows/blind-policy/sample
+    returns a safe fixture; there is no dry-run flag on paid createJob or on prove.
+reversibility:
+  grade: none
+  summary: Neither OpenAPI declares a cancel, refund, void, undo or delete operation, and no docs state a reversal
+    window. Paid jobs settle in finalized USDC on Solana mainnet, which is irreversible at the ledger; the docs
+    say nothing about refunds for failed jobs.
+  write_surfaces:
+  - operationId: createJob
+    reversal: null
+    window: null
+    note: No cancel route; a paid job becomes irreversible once the USDC transaction is finalized.
+  - operationId: submitPayment
+    reversal: null
+    window: null
+    note: Finalized on-chain transfer; no refund operation or policy published.
+  - operationId: registerAgent
+    reversal: null
+    window: null
+    note: No deregister/delete route in the spec.
+  - operationId: publishListing
+    reversal: null
+    window: null
+    note: No unpublish/delete route.
+  - operationId: createAgreement
+    reversal: null
+    window: null
+  - operationId: acceptAgreement
+    reversal: null
+    window: null
+  - operationId: createReferral
+    reversal: null
+    window: null
+  - operationId: requestLogistics
+    reversal: null
+    window: null
+  - operationId: proveBlindPolicy (overlay id)
+    reversal: null
+    window: null
+    note: Proof packages carry expiresAt; expiry is not a reversal.
+  - operationId: storeBlindPolicyOnchainReceipt (overlay id)
+    reversal: null
+    window: null
+    note: Writes receipt hashes to a Solana Anchor PDA or Memo transaction - irreversible by design.
+cross_links:
+  errors: errors/privatedao-org-problem-types.yml
+  lifecycle: lifecycle/privatedao-org-lifecycle.yml
+  authentication: authentication/privatedao-org-authentication.yml
+  rate_limits: rate-limits/privatedao-org-rate-limits.yml
+  sandbox: sandbox/privatedao-org-sandbox.yml

@@ -1,0 +1,55 @@
+generated: '2026-09-19'
+method: searched
+source: https://api.privatedao.org/api/v1/proof-workflows/blind-policy/sample, https://privatedao.org/developers/blind-policy-api/,
+  Agent Card workflow.freeTest (https://agents.privatedao.org/.well-known/agent-card.json), https://agents.privatedao.org/api/services
+summary: 'No separate sandbox host and no test-vs-live key split (there are no keys). Testing is done against production
+  with published free paths: two free Agent Exchange services and a Blind Policy sample payload endpoint.'
+test_vs_live:
+  separate_environment: false
+  key_prefixes: null
+  note: Both APIs are unauthenticated production endpoints; the Agent Exchange settles paid jobs in real USDC on
+    Solana mainnet-beta (treasury 2BJ4ezxqV9YJXc38D9duKBkdn4su4jE1beKUHwH663sL).
+free_paths:
+- api: agent-exchange
+  service_id: verify.basic
+  price_usdc: 0
+  documented_example_body:
+    service_id: verify.basic
+    input:
+      record:
+        mint: <SOLANA_MINT>
+  call: POST https://agents.privatedao.org/api/jobs
+  result: The response includes result and receipt; verify the receipt with the receipt URL.
+  source: Agent Card workflow.freeTest
+- api: agent-exchange
+  service_id: receipt.verify
+  price_usdc: 0
+  input: receipt and expected hash
+  output: receipt integrity result
+  source: /api/services
+fixtures:
+- api: blind-policy
+  endpoint: GET https://api.privatedao.org/api/v1/proof-workflows/blind-policy/sample
+  description: Safe sample private inputs and public policy shape for integration testing (verbatim from the endpoint).
+  sample_private_inputs:
+    organizationId: sample-lender-001
+    subjectId: customer-redacted-4381
+    membershipVerified: true
+    records:
+    - amountUsd: 8800
+    - amountUsd: 9400
+    - amountUsd: 9200
+    riskScore: 84
+    liabilitiesUsd: 2400
+  public_policy_shape:
+    policyId: private-credit-capacity-v1
+    proofType: Groth16 ZK policy proof
+    publicSignals:
+    - policyId
+    - policyCommitment
+    - inputCommitment
+    - satisfiedClaim
+  tamper_test: The SDK page documents a prove -> verify -> tamper script (node packages/blind-policy-sdk/examples/prove-verify-tamper.mjs)
+    that alters a receipt so verify returns mismatch.
+test_clocks: null
+simulation_triggers: null

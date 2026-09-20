@@ -1,0 +1,146 @@
+generated: '2026-09-19'
+method: probed
+source: https://agents.privatedao.org/.well-known/agent-card.json
+card:
+  file: a2a/privatedao-org-agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: agents.privatedao.org
+  note: Served from the agent host, not the apex. privatedao.org, www.privatedao.org and api.privatedao.org answer
+    200 with the same 60,704-byte text/html SPA shell for every /.well-known/* path (and for /nonexistent-zzz),
+    so their agent-card.json responses are soft-404s and were rejected. agents.privatedao.org serves the identical
+    body at the legacy /.well-known/agent.json as well, and GET on /a2a and /mcp both return the card.
+x-evidence:
+  fetched: '2026-09-19'
+  url: https://agents.privatedao.org/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  body_bytes: 6776
+  body_parses_as: JSON object with AgentCard shape (name, url, version, protocolVersion, capabilities, skills all
+    present)
+  corroborating_probes:
+  - url: https://agents.privatedao.org/.well-known/agent.json
+    http_status: 200
+    note: byte-identical to the canonical path
+  - url: https://privatedao.org/.well-known/agent-card.json
+    http_status: 200
+    note: text/html SPA shell, 60,704 bytes - soft-404, rejected
+  - url: https://api.privatedao.org/.well-known/agent-card.json
+    http_status: 200
+    note: same SPA shell - rejected
+  - url: https://agents.privatedao.org/a2a
+    http_status: 200
+    note: POST message/send with a JSON-RPC 2.0 body returned a completed Task whose artifact carries the service
+      catalog (live A2A JSON-RPC endpoint, unauthenticated); GET returns the card
+  - url: https://a2aregistry.org
+    http_status: null
+    note: Listed on a2aregistry.org as "PrivateDAO Agent Exchange" (the harvest source for this provider)
+conformance:
+  spec: A2A 1.0.0
+  grade: conformant
+  protocol_version: 0.3.0
+  preferred_transport: null
+  checks:
+    capabilities_is_object: true
+    protocolVersion_present: true
+    skills_is_array: true
+    skills_count: 15
+  deviations: []
+  notes:
+  - No preferredTransport (optional); the JSON-RPC binding is implied by the live /a2a endpoint.
+  - Uses the pre-0.3 `authentication.schemes` field ([none, solana-payment]) instead of `securitySchemes`/`security`;
+    "solana-payment" is not a registered A2A security scheme type - it names the pay-per-job USDC flow, not a credential.
+  - 'Carries vendor extensions outside the schema: networks, networkCapabilities, protocols {a2a, mcp, openapi},
+    serviceCatalog, pricing, workflow, payment. Each skill carries a non-standard pricing block.'
+  - Skill descriptions are one-word placeholders ("free service"/"paid service") for 14 of 15 skills; the service
+    catalog at /api/services carries the real input/output text.
+agent_card:
+  name: PrivateDAO Agent Exchange
+  description: Machine-native PrivateDAO services for verification, evidence and agent workflows. Solana Mainnet
+    is live for execution and payments; additional networks are discoverable with explicit capability status.
+  version: 1.3.0
+  url: https://agents.privatedao.org/a2a
+  documentation_url: https://agents.privatedao.org/llms-full.txt
+  provider:
+    organization: PrivateDAO
+    url: https://privatedao.org
+  capabilities:
+    streaming: false
+    pushNotifications: false
+  default_input_modes:
+  - text/plain
+  - application/json
+  default_output_modes:
+  - application/json
+  skills:
+  - id: verify.basic
+    name: Basic verification
+    access: free
+    price_usdc: 0
+  - id: verify.deep
+    name: Deep verification
+    access: paid
+    price_usdc: 0.25
+  - id: token.intelligence
+    name: Token intelligence
+    access: paid
+    price_usdc: 0.03
+  - id: risk.score
+    name: Risk score
+    access: paid
+    price_usdc: 0.02
+  - id: wallet.intelligence
+    name: Wallet intelligence
+    access: paid
+    price_usdc: 0.05
+  - id: contract.inspect
+    name: Program inspection
+    access: paid
+    price_usdc: 0.08
+  - id: launch.check
+    name: Launch check
+    access: paid
+    price_usdc: 0.03
+  - id: market.snapshot
+    name: Market snapshot
+    access: paid
+    price_usdc: 0.01
+  - id: decision.context
+    name: Decision context
+    access: paid
+    price_usdc: 0.1
+  - id: receipt.verify
+    name: Receipt verification
+    access: free
+    price_usdc: 0
+  - id: forensics.trace
+    name: Solana transaction trace
+    access: paid
+    price_usdc: 0.75
+  - id: agent.match
+    name: Agent capability matching
+    access: paid
+    price_usdc: 0.1
+  - id: sponsored.discovery
+    name: Sponsored machine discovery
+    access: paid
+    price_usdc: 5
+  - id: intelligence.synthesize
+    name: Evidence synthesis
+    access: paid
+    price_usdc: 1
+  - id: registry.search
+    name: Search agents
+    access: null
+    price_usdc: null
+  protocols:
+    a2a: https://agents.privatedao.org/a2a
+    mcp: https://agents.privatedao.org/mcp
+    openapi: https://agents.privatedao.org/openapi.json
+  payment:
+    network: solana-mainnet-beta
+    asset: USDC
+    quoteFirst: true
+    finalizedTransactionRequired: true
+    custody: receive-only treasury; the paying agent signs its own transaction

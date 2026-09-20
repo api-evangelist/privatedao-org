@@ -1,0 +1,63 @@
+generated: '2026-09-19'
+method: derived
+source: Derived from the live Agent Card (a2a/), the MCP initialize response (mcp/), both OpenAPIs (openapi/), the
+  well-known probe (well-known/) and observed error/payment behaviour; no prose compliance claims were found on
+  privatedao.org beyond the security posture page.
+standards:
+- id: a2a-agent-card
+  conforms: true
+  evidence: https://agents.privatedao.org/.well-known/agent-card.json - graded conformant against A2A 1.0.0 in a2a/privatedao-org-a2a.yml
+    (capabilities object, protocolVersion 0.3.0, 15-item skills array); live JSON-RPC message/send on /a2a returned
+    a completed Task.
+  domain_standard: true
+  spec_location: a2a/privatedao-org-agent-card.json#/protocolVersion
+- id: mcp
+  conforms: true
+  evidence: POST initialize on https://agents.privatedao.org/mcp returned protocolVersion 2025-03-26 and tools/list
+    returned 11 tools (inputSchemas empty).
+  domain_standard: true
+- id: json-rpc-2.0
+  conforms: true
+  evidence: Both /a2a and /mcp answer JSON-RPC 2.0 envelopes ({jsonrpc:"2.0", id, result}).
+- id: openapi-3.x
+  conforms: true
+  evidence: openapi 3.1.0 at agents.privatedao.org/openapi.json (operationIds only) and openapi 3.0.3 at privatedao.org/blind-policy-openapi.json
+    (schemas, 422 responses).
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: https://privatedao.org/.well-known/security.txt with Contact, Policy, Canonical, Expires.
+- id: x402
+  conforms: false
+  evidence: The 402 flow is PrivateDAO's own payment_intent quote (POST /api/jobs -> 402 -> pay -> POST /api/jobs/{jobId}/payment);
+    it does not use x402 headers (PAYMENT-REQUIRED / X-PAYMENT). @quicknode/x402-solana appears only as an optional,
+    currently disabled upstream RPC dependency in api.privatedao.org/api/v1/commercial/checkout/status.
+- id: oauth2
+  conforms: false
+  evidence: No securitySchemes in either OpenAPI; no /.well-known/oauth-authorization-server or oauth-protected-resource
+    on any host; Agent Card authentication.schemes = [none, solana-payment].
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration (agents/api hosts 404; apex returns an SPA shell).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are {"error":"<code>","message":"..."} (agents) and {"ok":false,"error":"..."} (api) as application/json,
+    not application/problem+json.
+- id: rfc9728-protected-resource-metadata
+  conforms: false
+  evidence: https://agents.privatedao.org/.well-known/oauth-protected-resource -> 404.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key header or parameter documented in either OpenAPI, the Agent Card workflow or llms.txt.
+- id: pagination
+  conforms: false
+  evidence: No pagination parameters on any list route (/api/registry/search, /api/marketplace/listings); GET /api/marketplace/listings
+    returns the whole list.
+- id: rfc8594-sunset-deprecation
+  conforms: false
+  evidence: No Sunset/Deprecation headers observed; no deprecation policy published.
+- id: groth16-zk-snark
+  conforms: true
+  evidence: Blind Policy API status declares proofSystem Groth16, circuit private_dao_blind_policy_overlay, circuitVersion
+    groth16-v1, public signals [policyId, policyCommitment, inputCommitment, satisfiedClaim] (https://api.privatedao.org/api/v1/proof-workflows/blind-policy/status).
+  note: A proof system, not an interoperability standard; recorded because the contract declares it, not as a domain_standard
+    credit.

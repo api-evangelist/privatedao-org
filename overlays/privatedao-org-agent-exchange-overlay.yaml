@@ -1,0 +1,89 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the PrivateDAO Agent Exchange OpenAPI
+  version: '2026-09-19'
+  description: Adds an info.description, server description, and per-operation summaries/descriptions taken from
+    the provider's own service catalog (/api/services), Agent Card workflow block and llms.txt. The original document
+    publishes operationIds only. Nothing here changes a path, method or operationId.
+extends: openapi/privatedao-org-agent-exchange-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source:
+- https://agents.privatedao.org/api/services
+- https://agents.privatedao.org/.well-known/agent-card.json
+- https://agents.privatedao.org/llms.txt
+actions:
+- target: $.info
+  update:
+    description: 'Machine-native PrivateDAO services for verification, evidence and agent workflows on Solana Mainnet.
+      Flow: discover -> POST /api/jobs -> run verify.basic free or receive HTTP 402 -> read payment_intent -> pay
+      the exact finalized Solana Mainnet USDC quote -> POST /api/jobs/{jobId}/payment with the transaction signature
+      -> GET /api/jobs/{jobId} -> GET /api/receipts/{receiptId}.'
+    contact:
+      name: PrivateDAO
+      url: https://privatedao.org/contact/
+- target: $.servers[0]
+  update:
+    description: Agent Exchange (production, Solana mainnet-beta)
+- target: $.paths['/api/health'].get
+  update:
+    summary: Service health and network attestation
+- target: $.paths['/api/services'].get
+  update:
+    summary: List services with price, access, input and output
+- target: $.paths['/api/pricing'].get
+  update:
+    summary: Per-service USDC prices
+- target: $.paths['/api/jobs'].post
+  update:
+    summary: Create a job for a service_id
+    description: 'Body: {"service_id": "<id from /api/services>", "input": {...}}. Free services (verify.basic,
+      receipt.verify) return result and receipt inline; paid services return 402 with a payment_intent (quote-first,
+      exact USDC amount, finalized transaction required). Documented example body: {"service_id":"verify.basic","input":{"record":{"mint":"<SOLANA_MINT>"}}}.
+      Unknown service_id -> 400 {"error":"request_failed","message":"unknown service"}.'
+- target: $.paths['/api/jobs/{jobId}'].get
+  update:
+    summary: Job status and result
+- target: $.paths['/api/jobs/{jobId}/payment'].post
+  update:
+    summary: Submit the finalized Solana transaction signature for a quoted job
+- target: $.paths['/api/receipts/{receiptId}'].get
+  update:
+    summary: Fetch a job receipt for independent verification
+- target: $.paths['/api/registry/register'].post
+  update:
+    summary: Register an agent in the exchange registry
+- target: $.paths['/api/registry/search'].get
+  update:
+    summary: Search registered agents (?q=)
+- target: $.paths['/api/discovery'].get
+  update:
+    summary: Organic and sponsored discovery placements
+- target: $.paths['/api/acquisition'].get
+  update:
+    summary: 'Acquisition surface: canonical host, free entry service, services with payment assets and receipt
+      URL template'
+- target: $.paths['/api/marketplace/listings'].get
+  update:
+    summary: Search marketplace listings
+- target: $.paths['/api/marketplace/listings'].post
+  update:
+    summary: Publish a marketplace listing
+- target: $.paths['/api/logistics/request'].post
+  update:
+    summary: Request logistics provider matching
+- target: $.paths['/api/logistics/capabilities'].get
+  update:
+    summary: Logistics capabilities and supported protocols (HTTP, A2A, MCP)
+- target: $.paths['/api/agreements'].post
+  update:
+    summary: Create a structured agreement
+- target: $.paths['/api/agreements/{agreementId}/accept'].post
+  update:
+    summary: Accept an agreement
+- target: $.paths['/api/treasury/status'].get
+  update:
+    summary: Treasury wallet status on Solana mainnet
+- target: $.paths['/api/revenue'].get
+  update:
+    summary: Aggregate job and fee revenue
