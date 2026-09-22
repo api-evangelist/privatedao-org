@@ -21,6 +21,20 @@ tags:
 - A2A
 - MCP
 - Verification
+- Zero-Knowledge Proofs
+- Solana
+- Blockchain
+- Payments
+- Marketplace
+- Privacy
+- Governance
+- Treasury
+tags_raw:
+- Company
+- Agents
+- A2A
+- MCP
+- Verification
 - Zero Knowledge Proofs
 - Solana
 - Blockchain
@@ -99,6 +113,12 @@ apis:
   humanURL: https://privatedao.org/developers/blind-policy-api/
   baseURL: https://api.privatedao.org/api/v1
   tags:
+  - Zero-Knowledge Proofs
+  - Verification
+  - Compliance
+  - Lending
+  - Solana
+  tags_raw:
   - Zero Knowledge Proofs
   - Verification
   - Compliance
