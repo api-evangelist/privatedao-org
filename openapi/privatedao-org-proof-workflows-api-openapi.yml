@@ -1,13 +1,12 @@
-x-source: https://privatedao.org/blind-policy-openapi.json
-x-fetched: '2026-09-19'
-x-note: Verbatim provider-published document, re-serialized from JSON to YAML only; the byte-exact original is in openapi/_original/.
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: PrivateDAO Blind Policy Verification API
+  title: Privatedao Org Proof Workflows API
   version: 0.1.0
-  description: API for proving and verifying that a private policy was satisfied without exposing private policy inputs.
+  description: 'Operations tagged Proof Workflows across 2 of this provider''s published API definitions: privatedao-org-blind-policy-openapi.json, privatedao-org-blind-policy-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.privatedao.org/api/v1
+tags:
+- name: Proof Workflows
 paths:
   /proof-workflows/blind-policy/status:
     get:
@@ -15,12 +14,24 @@ paths:
       responses:
         '200':
           description: Status response
+      tags:
+      - Proof Workflows
+      operationId: getProofWorkflowsBlindPolicyStatus
+      x-operation-id-source: derived
+    servers:
+    - url: https://api.privatedao.org/api/v1
   /proof-workflows/blind-policy/sample:
     get:
       summary: Get sample private input and sample proof package
       responses:
         '200':
           description: Sample response
+      tags:
+      - Proof Workflows
+      operationId: getProofWorkflowsBlindPolicySample
+      x-operation-id-source: derived
+    servers:
+    - url: https://api.privatedao.org/api/v1
   /proof-workflows/blind-policy/prove:
     post:
       summary: Generate a Groth16 Blind Policy proof package
@@ -42,6 +53,12 @@ paths:
           description: Proof issued
         '422':
           description: Proof not issued because the private policy was not satisfied or input validation failed
+      tags:
+      - Proof Workflows
+      operationId: postProofWorkflowsBlindPolicyProve
+      x-operation-id-source: derived
+    servers:
+    - url: https://api.privatedao.org/api/v1
   /proof-workflows/blind-policy/verify:
     post:
       summary: Verify a public Blind Policy proof package
@@ -61,12 +78,16 @@ paths:
           description: Proof package verified
         '422':
           description: Proof package mismatch or invalid proof
+      tags:
+      - Proof Workflows
+      operationId: postProofWorkflowsBlindPolicyVerify
+      x-operation-id-source: derived
+    servers:
+    - url: https://api.privatedao.org/api/v1
   /proof-workflows/blind-policy/onchain-receipt:
     post:
       summary: Store verified Blind Policy receipt hashes in the Solana Anchor receipt registry
-      description: The API first verifies the Groth16 proof package and hash match. If verification passes, it stores proofIdHash,
-        proofHash, policyCommitmentHash, inputCommitmentHash, verificationKeyHash, circuitVersionHash, and policyVersionHash
-        in a Solana PDA receipt account and returns Explorer links.
+      description: The API first verifies the Groth16 proof package and hash match. If verification passes, it stores proofIdHash, proofHash, policyCommitmentHash, inputCommitmentHash, verificationKeyHash, circuitVersionHash, and policyVersionHash in a Solana PDA receipt account and returns Explorer links.
       requestBody:
         required: true
         content:
@@ -83,6 +104,12 @@ paths:
           description: Receipt stored or already exists on Solana
         '422':
           description: Proof package failed verification or on-chain receipt submission failed
+      tags:
+      - Proof Workflows
+      operationId: postProofWorkflowsBlindPolicyOnchainReceipt
+      x-operation-id-source: derived
+    servers:
+    - url: https://api.privatedao.org/api/v1
 components:
   schemas:
     BlindPolicyProofPackage:
@@ -161,3 +188,6 @@ components:
           type: number
         liabilitiesUsd:
           type: number
+x-refined-from:
+- privatedao-org-blind-policy-openapi.json
+- privatedao-org-blind-policy-openapi.yml

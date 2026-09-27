@@ -1,3 +1,5 @@
+# x-archived-from: privatedao-org-agent-exchange-openapi.yml
+# x-archived-on: 2026-09-26
 x-source: https://agents.privatedao.org/openapi.json
 x-fetched: '2026-09-19'
 x-note: Verbatim provider-published document, re-serialized from JSON to YAML only; the byte-exact original is in openapi/_original/.

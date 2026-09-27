@@ -7,6 +7,22 @@ description: 'PrivateDAO (X-PACT) sells privacy-and-proof infrastructure for org
   hosted MCP server) and the Blind Policy Verification API on api.privatedao.org (Groth16 zero-knowledge proofs
   that a private policy was satisfied).'
 url: https://raw.githubusercontent.com/api-evangelist/privatedao-org/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - x-pact/privatedao-public
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 image: https://privatedao.org/assets/privatedao-brand-mark-20260918.jpeg
 x-type: company
 x-source: harvest:a2a-registry
@@ -44,48 +60,27 @@ tags_raw:
 - Governance
 - Treasury
 apis:
-- aid: privatedao-org:agent-exchange-api
-  name: PrivateDAO Agent Exchange API
-  description: Machine-native verification, evidence and agent-workflow services on Solana mainnet. Discover services,
-    create jobs (two free, twelve paid per job in USDC with a quote-first 402 payment_intent flow), submit payment
-    signatures, fetch receipts, register and search agents, publish marketplace listings, and create agreements.
-    The same job engine is exposed as an A2A agent (/a2a) and a hosted MCP server (/mcp).
+- aid: privatedao-org:privatedao-org-acquisition-api
+  name: PrivateDAO Acquisition API
+  description: The Acquisition API from PrivateDAO — 1 operation(s) for acquisition.
   humanURL: https://privatedao.org/agents/
   baseURL: https://agents.privatedao.org
   tags:
-  - Agents
-  - A2A
-  - MCP
-  - Verification
-  - Solana
-  - Marketplace
-  - Payments
+  - Acquisition
   properties:
   - type: OpenAPI
-    url: openapi/privatedao-org-agent-exchange-openapi.yml
-  - type: OpenAPI
-    name: Provider-hosted OpenAPI (remote)
-    url: https://agents.privatedao.org/openapi.json
+    url: openapi/privatedao-org-acquisition-api-openapi.yml
   - type: Documentation
     url: https://agents.privatedao.org/llms.txt
   - type: Documentation
-    name: Agent Marketplace overview
     url: https://privatedao.org/agents/
-  - type: MCPServer
-    url: mcp/privatedao-org-mcp.yml
-  - type: MCPServer
-    name: Hosted MCP endpoint
-    url: https://agents.privatedao.org/mcp
   - type: ToolCrosswalk
     url: mcp/privatedao-org-tool-crosswalk.yml
   - type: AgentCard
     url: a2a/privatedao-org-a2a.yml
-  - type: Overlay
-    url: overlays/privatedao-org-agent-exchange-overlay.yaml
   - type: Plans
     url: plans/privatedao-org-plans-pricing.yml
   - type: Pricing
-    name: Machine-readable per-service prices
     url: https://agents.privatedao.org/api/pricing
   - type: Sandbox
     url: sandbox/privatedao-org-sandbox.yml
@@ -95,48 +90,34 @@ apis:
     url: errors/privatedao-org-problem-types.yml
   - type: DataModel
     url: data-model/privatedao-org-data-model.yml
-  - type: AgentSkill
-    url: skills/privatedao-org-run-free-verification.md
-  - type: AgentSkill
-    url: skills/privatedao-org-pay-for-a-job.md
-  - type: AgentSkill
-    url: skills/privatedao-org-register-and-discover-agents.md
   - type: Authentication
     url: authentication/privatedao-org-authentication.yml
-  image: https://privatedao.org/assets/privatedao-brand-mark-20260918.jpeg
-- aid: privatedao-org:blind-policy-verification-api
-  name: PrivateDAO Blind Policy Verification API
-  description: Prove that a private policy (e.g. a credit-capacity rule over private records, risk score and liabilities)
-    was satisfied without revealing the inputs. Groth16 proofs over the private_dao_blind_policy_overlay circuit;
-    endpoints for status, a safe sample payload, prove, verify (hash recompute + expiry check) and an on-chain Solana
-    receipt.
-  humanURL: https://privatedao.org/developers/blind-policy-api/
-  baseURL: https://api.privatedao.org/api/v1
-  tags:
-  - Zero-Knowledge Proofs
-  - Verification
-  - Compliance
-  - Lending
-  - Solana
-  tags_raw:
-  - Zero Knowledge Proofs
-  - Verification
-  - Compliance
-  - Lending
-  - Solana
-  properties:
-  - type: OpenAPI
-    url: openapi/privatedao-org-blind-policy-openapi.yml
-  - type: OpenAPI
-    name: Provider-hosted OpenAPI (remote)
-    url: https://privatedao.org/blind-policy-openapi.json
   - type: Documentation
     url: https://privatedao.org/developers/blind-policy-api/
   - type: Documentation
-    name: Blind Policy SDK page (pilot-only; package not on any registry, so no SDKs pointer)
     url: https://privatedao.org/developers/blind-policy-sdk/
-  - type: Overlay
-    url: overlays/privatedao-org-blind-policy-overlay.yaml
+- aid: privatedao-org:privatedao-org-agreements-api
+  name: PrivateDAO Agreements API
+  description: The Agreements API from PrivateDAO — 3 operation(s) for agreements.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Agreements
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-agreements-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
   - type: Sandbox
     url: sandbox/privatedao-org-sandbox.yml
   - type: Conventions
@@ -145,19 +126,496 @@ apis:
     url: errors/privatedao-org-problem-types.yml
   - type: DataModel
     url: data-model/privatedao-org-data-model.yml
-  - type: Plans
-    url: plans/privatedao-org-plans-pricing.yml
-  - type: AgentSkill
-    url: skills/privatedao-org-blind-policy-prove-and-verify.md
   - type: Authentication
     url: authentication/privatedao-org-authentication.yml
-  image: https://privatedao.org/assets/privatedao-brand-mark-20260918.jpeg
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-discovery-api
+  name: PrivateDAO Discovery API
+  description: The Discovery API from PrivateDAO — 1 operation(s) for discovery.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-health-api
+  name: PrivateDAO Health API
+  description: The Health API from PrivateDAO — 1 operation(s) for health.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-health-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-jobs-api
+  name: PrivateDAO Jobs API
+  description: The Jobs API from PrivateDAO — 3 operation(s) for jobs.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-logistics-api
+  name: PrivateDAO Logistics API
+  description: The Logistics API from PrivateDAO — 2 operation(s) for logistics.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Logistics
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-logistics-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-marketplace-api
+  name: PrivateDAO Marketplace API
+  description: The Marketplace API from PrivateDAO — 1 operation(s) for marketplace.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Marketplace
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-marketplace-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-pricing-api
+  name: PrivateDAO Pricing API
+  description: The Pricing API from PrivateDAO — 1 operation(s) for pricing.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Pricing
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-pricing-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-proof-workflows-api
+  name: PrivateDAO Proof Workflows API
+  description: The Proof Workflows API from PrivateDAO — 5 operation(s) for proof workflows.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Proof Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-proof-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-receipts-api
+  name: PrivateDAO Receipts API
+  description: The Receipts API from PrivateDAO — 1 operation(s) for receipts.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Receipts
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-receipts-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-referrals-api
+  name: PrivateDAO Referrals API
+  description: The Referrals API from PrivateDAO — 1 operation(s) for referrals.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Referrals
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-referrals-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-registry-api
+  name: PrivateDAO Registry API
+  description: The Registry API from PrivateDAO — 2 operation(s) for registry.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Registry
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-registry-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-revenue-api
+  name: PrivateDAO Revenue API
+  description: The Revenue API from PrivateDAO — 1 operation(s) for revenue.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Revenue
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-revenue-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-services-api
+  name: PrivateDAO Services API
+  description: The Services API from PrivateDAO — 1 operation(s) for services.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Services
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-services-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
+- aid: privatedao-org:privatedao-org-treasury-api
+  name: PrivateDAO Treasury API
+  description: The Treasury API from PrivateDAO — 1 operation(s) for treasury.
+  humanURL: https://privatedao.org/agents/
+  baseURL: https://agents.privatedao.org
+  tags:
+  - Treasury
+  properties:
+  - type: OpenAPI
+    url: openapi/privatedao-org-treasury-api-openapi.yml
+  - type: Documentation
+    url: https://agents.privatedao.org/llms.txt
+  - type: Documentation
+    url: https://privatedao.org/agents/
+  - type: ToolCrosswalk
+    url: mcp/privatedao-org-tool-crosswalk.yml
+  - type: AgentCard
+    url: a2a/privatedao-org-a2a.yml
+  - type: Plans
+    url: plans/privatedao-org-plans-pricing.yml
+  - type: Pricing
+    url: https://agents.privatedao.org/api/pricing
+  - type: Sandbox
+    url: sandbox/privatedao-org-sandbox.yml
+  - type: Conventions
+    url: conventions/privatedao-org-conventions.yml
+  - type: ErrorCatalog
+    url: errors/privatedao-org-problem-types.yml
+  - type: DataModel
+    url: data-model/privatedao-org-data-model.yml
+  - type: Authentication
+    url: authentication/privatedao-org-authentication.yml
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-api/
+  - type: Documentation
+    url: https://privatedao.org/developers/blind-policy-sdk/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: MCPServer
+  url: https://agents.privatedao.org/mcp
+- type: AgentSkill
+  url: skills/privatedao-org-run-free-verification.md
+- type: AgentSkill
+  url: skills/privatedao-org-pay-for-a-job.md
+- type: AgentSkill
+  url: skills/privatedao-org-register-and-discover-agents.md
+- type: AgentSkill
+  url: skills/privatedao-org-blind-policy-prove-and-verify.md
 - type: VulnerabilityDisclosure
   url: security/privatedao-org-vulnerability-disclosure.yml
 - type: DomainSecurity
@@ -246,3 +704,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 32
   pass: local-v3
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://agents.privatedao.org/.well-known/agent-card.json"
+  grade: "near-conformant"
+  protocol_version: "0.3.0"
+  control: 404
