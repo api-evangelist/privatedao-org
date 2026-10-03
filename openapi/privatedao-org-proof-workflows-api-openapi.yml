@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Privatedao Org Proof Workflows API
+  title: PrivateDAO Blind Policy Verification Proof Workflows API
   version: 0.1.0
-  description: 'Operations tagged Proof Workflows across 2 of this provider''s published API definitions: privatedao-org-blind-policy-openapi.json, privatedao-org-blind-policy-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: API for proving and verifying that a private policy was satisfied without exposing private policy inputs.
 servers:
 - url: https://api.privatedao.org/api/v1
 tags:
@@ -18,8 +18,6 @@ paths:
       - Proof Workflows
       operationId: getProofWorkflowsBlindPolicyStatus
       x-operation-id-source: derived
-    servers:
-    - url: https://api.privatedao.org/api/v1
   /proof-workflows/blind-policy/sample:
     get:
       summary: Get sample private input and sample proof package
@@ -30,8 +28,6 @@ paths:
       - Proof Workflows
       operationId: getProofWorkflowsBlindPolicySample
       x-operation-id-source: derived
-    servers:
-    - url: https://api.privatedao.org/api/v1
   /proof-workflows/blind-policy/prove:
     post:
       summary: Generate a Groth16 Blind Policy proof package
@@ -57,8 +53,6 @@ paths:
       - Proof Workflows
       operationId: postProofWorkflowsBlindPolicyProve
       x-operation-id-source: derived
-    servers:
-    - url: https://api.privatedao.org/api/v1
   /proof-workflows/blind-policy/verify:
     post:
       summary: Verify a public Blind Policy proof package
@@ -82,8 +76,6 @@ paths:
       - Proof Workflows
       operationId: postProofWorkflowsBlindPolicyVerify
       x-operation-id-source: derived
-    servers:
-    - url: https://api.privatedao.org/api/v1
   /proof-workflows/blind-policy/onchain-receipt:
     post:
       summary: Store verified Blind Policy receipt hashes in the Solana Anchor receipt registry
@@ -108,10 +100,38 @@ paths:
       - Proof Workflows
       operationId: postProofWorkflowsBlindPolicyOnchainReceipt
       x-operation-id-source: derived
-    servers:
-    - url: https://api.privatedao.org/api/v1
 components:
   schemas:
+    BlindPolicyPrivateInputs:
+      type: object
+      required:
+      - organizationId
+      - subjectId
+      - membershipVerified
+      - records
+      - riskScore
+      - liabilitiesUsd
+      properties:
+        organizationId:
+          type: string
+        subjectId:
+          type: string
+        membershipVerified:
+          type: boolean
+        records:
+          type: array
+          minItems: 3
+          items:
+            type: object
+            required:
+            - amountUsd
+            properties:
+              amountUsd:
+                type: number
+        riskScore:
+          type: number
+        liabilitiesUsd:
+          type: number
     BlindPolicyProofPackage:
       type: object
       required:
@@ -158,36 +178,3 @@ components:
           type: string
         groth16Proof:
           type: object
-    BlindPolicyPrivateInputs:
-      type: object
-      required:
-      - organizationId
-      - subjectId
-      - membershipVerified
-      - records
-      - riskScore
-      - liabilitiesUsd
-      properties:
-        organizationId:
-          type: string
-        subjectId:
-          type: string
-        membershipVerified:
-          type: boolean
-        records:
-          type: array
-          minItems: 3
-          items:
-            type: object
-            required:
-            - amountUsd
-            properties:
-              amountUsd:
-                type: number
-        riskScore:
-          type: number
-        liabilitiesUsd:
-          type: number
-x-refined-from:
-- privatedao-org-blind-policy-openapi.json
-- privatedao-org-blind-policy-openapi.yml
