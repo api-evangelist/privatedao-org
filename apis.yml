@@ -210,6 +210,8 @@ apis:
   humanURL: https://privatedao.org/agents/
   baseURL: https://agents.privatedao.org
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
