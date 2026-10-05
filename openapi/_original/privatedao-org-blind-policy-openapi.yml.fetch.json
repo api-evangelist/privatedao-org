@@ -1,0 +1,12 @@
+{
+ "url": "https://privatedao.org/blind-policy-openapi.json",
+ "requested_url": "https://privatedao.org/blind-policy-openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 5897,
+ "sha256": "c283de2d20823a526e813236dab87778f51a644dc9df993c3b4c50c649ebc497",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
