@@ -322,3 +322,167 @@ plans:
   - Custom verification domain
   - SLA and security review support
   - Annual private deployment option
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  - subscription
+  units:
+  - request
+  plans:
+  - name: Basic verification
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Deep verification
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Token intelligence
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Risk score
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Wallet intelligence
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Program inspection
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Launch check
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Market snapshot
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Decision context
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Receipt verification
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Solana transaction trace
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Agent capability matching
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Sponsored machine discovery
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Evidence synthesis
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Community Trial
+    access: free
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Starter (PROFESSIONAL)
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods: []
+  - name: Business (ORGANIZATION)
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods: []
+  - name: Blind Policy Pilot
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods: []
+  - name: Blind Policy Business
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods: []
+  - name: Blind Policy Enterprise
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods: []
