@@ -102,36 +102,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BlindPolicyPrivateInputs:
-      type: object
-      required:
-      - organizationId
-      - subjectId
-      - membershipVerified
-      - records
-      - riskScore
-      - liabilitiesUsd
-      properties:
-        organizationId:
-          type: string
-        subjectId:
-          type: string
-        membershipVerified:
-          type: boolean
-        records:
-          type: array
-          minItems: 3
-          items:
-            type: object
-            required:
-            - amountUsd
-            properties:
-              amountUsd:
-                type: number
-        riskScore:
-          type: number
-        liabilitiesUsd:
-          type: number
     BlindPolicyProofPackage:
       type: object
       required:
@@ -178,3 +148,33 @@ components:
           type: string
         groth16Proof:
           type: object
+    BlindPolicyPrivateInputs:
+      type: object
+      required:
+      - organizationId
+      - subjectId
+      - membershipVerified
+      - records
+      - riskScore
+      - liabilitiesUsd
+      properties:
+        organizationId:
+          type: string
+        subjectId:
+          type: string
+        membershipVerified:
+          type: boolean
+        records:
+          type: array
+          minItems: 3
+          items:
+            type: object
+            required:
+            - amountUsd
+            properties:
+              amountUsd:
+                type: number
+        riskScore:
+          type: number
+        liabilitiesUsd:
+          type: number
