@@ -1,22 +1,23 @@
 generated: '2026-09-19'
 method: probed
 status: published
-source: https://agents.privatedao.org/mcp (POST initialize + tools/list, 2026-09-19); advertised in the Agent Card
-  protocols.mcp and in https://agents.privatedao.org/llms.txt
+source: https://agents.privatedao.org/mcp (POST initialize + tools/list, 2026-09-19); advertised in the
+  Agent Card protocols.mcp and in https://agents.privatedao.org/llms.txt
 docs: https://agents.privatedao.org/llms.txt
-summary: 'PrivateDAO hosts one remote MCP server on the Agent Exchange host. An anonymous initialize returns protocolVersion
-  2025-03-26, serverInfo pdao-agent-exchange 1.1.0 and capabilities {tools:{}}; tools/list returns 11 tools. Every
-  tool ships an EMPTY inputSchema ({type: object, additionalProperties: false}) and a placeholder description ("PrivateDAO
-  <tool_name>"), so the server is reachable but its tools are not self-describing - an agent must read the OpenAPI/service
-  catalog (see mcp/privatedao-org-tool-crosswalk.yml) to know what to send.'
+summary: 'PrivateDAO hosts one remote MCP server on the Agent Exchange host. An anonymous initialize returns
+  protocolVersion 2025-03-26, serverInfo pdao-agent-exchange 1.1.0 and capabilities {tools:{}}; tools/list
+  returns 11 tools. Every tool ships an EMPTY inputSchema ({type: object, additionalProperties: false})
+  and a placeholder description ("PrivateDAO <tool_name>"), so the server is reachable but its tools are
+  not self-describing - an agent must read the OpenAPI/service catalog (see mcp/privatedao-org-tool-crosswalk.yml)
+  to know what to send.'
 deployment:
   mode: remote
   endpoint: https://agents.privatedao.org/mcp
   auth: none
   verified: probed
   note: 'Hosted HTTPS endpoint an MCP client POSTs to directly; no stdio package, no npx/uvx install documented
-    anywhere. Unauthenticated: paid tools return the same 402 payment_intent flow as the REST API rather than requiring
-    a credential.'
+    anywhere. Unauthenticated: paid tools return the same 402 payment_intent flow as the REST API rather
+    than requiring a credential.'
 server:
   name: pdao-agent-exchange
   transport: http
@@ -106,3 +107,28 @@ tools:
     additionalProperties: false
   input_schema_note: empty as served
   crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+tool_quality:
+  tool_count: 22
+  tokens_total: 3483
+  tokens_per_tool_median: 123
+  heavy_tools: []
+  heavy_tool_count: 0
+  params_total: 67
+  params_undescribed: 32
+  params_described_pct: 52.2
+  tools_with_undescribed_params: 12
+  tools_annotated: 22
+  annotated_pct: 100.0
+  state_changing_unhinted: []
+  tools_missing_schema: 0
+  short_descriptions: 0
+  duplicate_descriptions: 0
+  duplicate_names: 0
+  nonportable_names: []
+  output_schema_count: 0
+  token_estimate: chars/3.6 of each compact tool definition
+  source: mcp/privatedao-org-mcp-tools.json
+  measured: '2026-10-20'
+  scored: false
+  note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
+    from Glimind's agent-readiness audit.

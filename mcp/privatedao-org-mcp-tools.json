@@ -1,0 +1,844 @@
+{
+  "endpoint": "https://agents.privatedao.org/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "pdao-agent-exchange",
+    "version": "1.6.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "exchange_overview",
+        "title": "PrivateDAO exchange_overview",
+        "description": "Start here. Explain the PrivateDAO Agent Exchange as a service economy for AI agents: discover a capability, request it, receive a quote when paid, execute read-only evidence work, and verify the receipt.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "description": "Explain what the PrivateDAO Agent Exchange is, its lifecycle, endpoints, payment rail and verification model."
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "pdao_services",
+        "title": "PrivateDAO pdao_services",
+        "description": "Return the complete current catalog with service IDs, customer value, category, pricing, inputs, outputs, target networks and payment behavior.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "description": "List every current PrivateDAO service with category, customer value, access, price, inputs, output, networks, runtime status and payment behavior."
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "product_catalog",
+        "title": "PrivateDAO product_catalog",
+        "description": "Return the current product packages with buyer, price, included services, target networks and exact batch checkout path.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "description": "List productized workflows with buyer, price, included services, supported networks and the exact quote-first checkout path."
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "service_recommendation",
+        "title": "PrivateDAO service_recommendation",
+        "description": "Map a natural-language task to the best available PrivateDAO services. Use this before create_paid_job when the user has not named a service ID.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "task": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 500,
+              "description": "Natural-language task the agent wants to accomplish."
+            },
+            "network": {
+              "type": "string",
+              "description": "Optional target network constraint."
+            }
+          },
+          "required": [
+            "task"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "provider_integrations",
+        "title": "PrivateDAO provider_integrations",
+        "description": "Explain what IBM watsonx, Intel OpenVINO, MongoDB, GitHub, ChatGPT, Claude, Grok, OpenClaw and the PrivateDAO Kernel add to the ecosystem, with relationship disclosures and safe provider status.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "description": "Explain the commercial role and verified status of each ecosystem integration without exposing credentials."
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "payment_guide",
+        "title": "PrivateDAO payment_guide",
+        "description": "Explain the quote-first Solana Mainnet USDC payment flow. Never infer an amount, never pay before a payment_intent, and never request a private key.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "description": "Return the exact quote-first paid-service lifecycle and safety rules."
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "execution_guide",
+        "title": "PrivateDAO execution_guide",
+        "description": "Explain how to create a free or paid job, interpret 402 payment_intent, submit finalized payment proof, poll status, retrieve a receipt and verify it.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "description": "Return the endpoints and state transitions needed to request, execute, poll and verify a service."
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "verify_basic",
+        "title": "PrivateDAO verify_basic",
+        "description": "PrivateDAO verify_basic",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "network": {
+              "type": "string",
+              "description": "Optional target network identifier."
+            },
+            "mint": {
+              "type": "string",
+              "description": "Solana mint address to inspect."
+            },
+            "asset": {
+              "type": "string",
+              "description": "Alias for mint."
+            },
+            "record": {
+              "type": "object",
+              "description": "Structured record to hash and verify."
+            },
+            "expected_digest": {
+              "type": "string",
+              "description": "Optional expected canonical digest."
+            }
+          },
+          "anyOf": [
+            {
+              "required": [
+                "mint"
+              ]
+            },
+            {
+              "required": [
+                "asset"
+              ]
+            },
+            {
+              "required": [
+                "record"
+              ]
+            }
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "receipt_verify",
+        "title": "PrivateDAO receipt_verify",
+        "description": "Verify a PrivateDAO receipt digest and return a machine-readable verification result. This is free and read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "network": {
+              "type": "string",
+              "description": "Optional target network identifier."
+            },
+            "receipt": {
+              "type": "object",
+              "description": "A PrivateDAO receipt returned by a completed job."
+            },
+            "expected_hash": {
+              "type": "string",
+              "description": "Optional expected receipt digest or result hash."
+            }
+          },
+          "required": [
+            "receipt"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "create_paid_job",
+        "title": "PrivateDAO create_paid_job",
+        "description": "PrivateDAO create_paid_job",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "service_id": {
+              "type": "string",
+              "enum": [
+                "verify.deep",
+                "token.intelligence",
+                "risk.score",
+                "wallet.intelligence",
+                "wallet.bot.classify",
+                "contract.inspect",
+                "launch.check",
+                "market.snapshot",
+                "research.asset",
+                "research.wallet",
+                "contract.explain",
+                "transaction.explain",
+                "anomaly.detect",
+                "agent.research.report",
+                "portfolio.intelligence",
+                "swap.quote",
+                "transaction.simulate",
+                "decision.context",
+                "github.repository",
+                "forensics.trace",
+                "agent.match",
+                "sponsored.discovery",
+                "intelligence.synthesize"
+              ]
+            },
+            "input": {
+              "type": "object",
+              "description": "Service-specific JSON input."
+            },
+            "pdao_access": {
+              "type": "object",
+              "description": "Optional signed PDAO holder challenge from /api/access/challenge.",
+              "properties": {
+                "wallet": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "signature": {
+                  "type": "string"
+                },
+                "nonce": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "wallet",
+                "message",
+                "signature",
+                "nonce"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "service_id"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "submit_payment",
+        "title": "PrivateDAO submit_payment",
+        "description": "PrivateDAO submit_payment",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "job_id": {
+              "type": "string",
+              "pattern": "^job_[A-Za-z0-9-]+$"
+            },
+            "signature": {
+              "type": "string",
+              "description": "Finalized Solana transaction signature."
+            }
+          },
+          "required": [
+            "job_id",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "job_status",
+        "title": "PrivateDAO job_status",
+        "description": "PrivateDAO job_status",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "job_id": {
+              "type": "string",
+              "pattern": "^job_[A-Za-z0-9-]+$"
+            }
+          },
+          "required": [
+            "job_id"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "get_receipt",
+        "title": "PrivateDAO get_receipt",
+        "description": "PrivateDAO get_receipt",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "receipt_id": {
+              "type": "string",
+              "pattern": "^rvr_[A-Za-z0-9]+$"
+            }
+          },
+          "required": [
+            "receipt_id"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "search_agents",
+        "title": "PrivateDAO search_agents",
+        "description": "PrivateDAO search_agents",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "q": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "Free-text registry search."
+            },
+            "capability": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "network": {
+              "type": "string",
+              "description": "Canonical network or accepted alias."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "register_agent",
+        "title": "PrivateDAO register_agent",
+        "description": "PrivateDAO register_agent",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "protocol": {
+              "type": "string",
+              "enum": [
+                "MCP"
+              ]
+            },
+            "mcpUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "Public HTTPS MCP endpoint"
+            },
+            "mcp_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Compatibility alias for mcpUrl."
+            },
+            "endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Compatibility alias for mcpUrl."
+            },
+            "agent_id": {
+              "type": "string",
+              "pattern": "^agent_[A-Za-z0-9_-]{8,100}$",
+              "description": "Snake-case compatibility alias for agentId."
+            },
+            "sellerId": {
+              "type": "string",
+              "pattern": "^agent_[A-Za-z0-9_-]{8,100}$",
+              "description": "Compatibility alias for agentId."
+            },
+            "seller_id": {
+              "type": "string",
+              "pattern": "^agent_[A-Za-z0-9_-]{8,100}$",
+              "description": "Snake-case compatibility alias for agentId."
+            },
+            "allowedTools": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "maxItems": 64
+            },
+            "allowed_tools": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "maxItems": 64,
+              "description": "Snake-case compatibility alias for allowedTools."
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 64
+              },
+              "maxItems": 16
+            },
+            "networks": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "maxItems": 32,
+              "description": "Explicitly declared supported networks; aliases are normalized."
+            },
+            "forceRefresh": {
+              "type": "boolean",
+              "description": "Force a fresh MCP handshake instead of returning an existing healthy registration."
+            },
+            "force_refresh": {
+              "type": "boolean",
+              "description": "Snake-case compatibility alias for forceRefresh."
+            },
+            "persistUnavailable": {
+              "type": "boolean",
+              "description": "Persist Unavailable after a failed health check; never marks it connected"
+            },
+            "persist_unavailable": {
+              "type": "boolean",
+              "description": "Snake-case compatibility alias for persistUnavailable."
+            },
+            "agentId": {
+              "type": "string",
+              "pattern": "^agent_[A-Za-z0-9_-]{8,100}$",
+              "description": "Stable seller identity for updates and endpoint replacement."
+            },
+            "ownerToken": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 200,
+              "description": "Seller ownership token; returned only once on first registration."
+            },
+            "owner_token": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 200,
+              "description": "Snake-case compatibility alias for ownerToken."
+            },
+            "commercialServices": {
+              "type": "array",
+              "maxItems": 64,
+              "items": {
+                "type": "object"
+              },
+              "description": "Explicit per-tool commercial metadata; prices are never inferred."
+            },
+            "commercial_services": {
+              "type": "array",
+              "maxItems": 64,
+              "items": {
+                "type": "object"
+              },
+              "description": "Snake-case compatibility alias for commercialServices."
+            },
+            "acceptedAssets": {
+              "type": "array",
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "maxLength": 20
+              }
+            },
+            "accepted_assets": {
+              "type": "array",
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "maxLength": 20
+              },
+              "description": "Snake-case compatibility alias for acceptedAssets."
+            },
+            "payout": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string"
+                },
+                "network": {
+                  "type": "string"
+                },
+                "asset": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "anyOf": [
+            {
+              "required": [
+                "mcpUrl"
+              ]
+            },
+            {
+              "required": [
+                "mcp_url"
+              ]
+            },
+            {
+              "required": [
+                "endpoint"
+              ]
+            }
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "agent_match",
+        "title": "PrivateDAO agent_match",
+        "description": "Free registry discovery and capability matching. Use create_paid_job for the paid agent.match service.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "maxItems": 32
+            },
+            "network": {
+              "type": "string",
+              "description": "Canonical network or accepted alias."
+            }
+          },
+          "required": [
+            "capabilities"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "logistics_request",
+        "title": "PrivateDAO logistics_request",
+        "description": "PrivateDAO logistics_request",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "capability": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "requirements": {
+              "type": "object"
+            },
+            "maxPrice": {
+              "type": "number",
+              "minimum": 0
+            },
+            "asset": {
+              "type": "string",
+              "maxLength": 20
+            },
+            "deadline": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "preferredProtocols": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 40
+              },
+              "maxItems": 8
+            },
+            "network": {
+              "type": "string",
+              "description": "Canonical network or accepted alias."
+            }
+          },
+          "required": [
+            "capability"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "network_stats",
+        "title": "PrivateDAO network_stats",
+        "description": "PrivateDAO network_stats",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "external_services",
+        "title": "PrivateDAO external_services",
+        "description": "PrivateDAO external_services",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "q": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "seller_update_services",
+        "title": "PrivateDAO seller_update_services",
+        "description": "PrivateDAO seller_update_services",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "agent_id": {
+              "type": "string"
+            },
+            "owner_token": {
+              "type": "string",
+              "minLength": 16
+            },
+            "services": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "accepted_assets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "payout": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "agent_id",
+            "owner_token",
+            "services"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "seller_replace_endpoint",
+        "title": "PrivateDAO seller_replace_endpoint",
+        "description": "PrivateDAO seller_replace_endpoint",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "agent_id": {
+              "type": "string"
+            },
+            "owner_token": {
+              "type": "string",
+              "minLength": 16
+            },
+            "mcp_url": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": [
+            "agent_id",
+            "owner_token",
+            "mcp_url"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "seller_retire",
+        "title": "PrivateDAO seller_retire",
+        "description": "PrivateDAO seller_retire",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "agent_id": {
+              "type": "string"
+            },
+            "owner_token": {
+              "type": "string",
+              "minLength": 16
+            },
+            "reason": {
+              "type": "string",
+              "maxLength": 300
+            }
+          },
+          "required": [
+            "agent_id",
+            "owner_token"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      }
+    ]
+  }
+}
