@@ -140,16 +140,16 @@ tools:
 - name: seller_retire
   description: PrivateDAO seller_retire
 tool_quality:
-  tool_count: 22
-  tokens_total: 3483
-  tokens_per_tool_median: 123
+  tool_count: 27
+  tokens_total: 4425
+  tokens_per_tool_median: 128
   heavy_tools: []
   heavy_tool_count: 0
-  params_total: 67
-  params_undescribed: 32
-  params_described_pct: 52.2
-  tools_with_undescribed_params: 12
-  tools_annotated: 22
+  params_total: 83
+  params_undescribed: 48
+  params_described_pct: 42.2
+  tools_with_undescribed_params: 16
+  tools_annotated: 27
   annotated_pct: 100.0
   state_changing_unhinted: []
   tools_missing_schema: 0

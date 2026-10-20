@@ -12,12 +12,12 @@
       {
         "name": "exchange_overview",
         "title": "PrivateDAO exchange_overview",
-        "description": "Start here. Explain the PrivateDAO Agent Exchange as a service economy for AI agents: discover a capability, request it, receive a quote when paid, execute read-only evidence work, and verify the receipt.",
+        "description": "Start here. Explain the PrivateDAO Agent Exchange, including PDAO utility and verified holder access, then distinguish it from quote-first USDC execution for ordinary paid jobs.",
         "inputSchema": {
           "type": "object",
           "properties": {},
           "additionalProperties": false,
-          "description": "Explain what the PrivateDAO Agent Exchange is, its lifecycle, endpoints, payment rail and verification model."
+          "description": "Explain the PrivateDAO Agent Exchange, its lifecycle, PDAO utility and holder access, quote-first USDC payment rail, endpoints and verification model."
         },
         "annotations": {
           "readOnlyHint": true,
@@ -110,12 +110,12 @@
       {
         "name": "payment_guide",
         "title": "PrivateDAO payment_guide",
-        "description": "Explain the quote-first Solana Mainnet USDC payment flow. Never infer an amount, never pay before a payment_intent, and never request a private key.",
+        "description": "Explain PDAO holder access and the quote-first Solana Mainnet USDC payment flow. Never infer an amount, never pay before a payment_intent, and never request a private key.",
         "inputSchema": {
           "type": "object",
           "properties": {},
           "additionalProperties": false,
-          "description": "Return the exact quote-first paid-service lifecycle and safety rules."
+          "description": "Return the exact quote-first lifecycle, PDAO holder-access path and USDC payment safety rules."
         },
         "annotations": {
           "readOnlyHint": true,
@@ -138,6 +138,177 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "privatepay_status",
+        "title": "PrivateDAO privatepay_status",
+        "description": "Show whether PrivatePAY x402 has a configured confidential privacy rail, facilitator, and confidential mint. Explain the public-chain privacy boundary without claiming anonymity.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "description": "Return the fail-closed readiness and privacy boundaries for PrivatePAY x402."
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "privatepay_challenge",
+        "title": "PrivateDAO privatepay_challenge",
+        "description": "Request a PrivatePAY x402 privacy-preserving challenge. This operation fails closed until the reviewed rail is configured and enabled.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            },
+            "provider_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "amount_base_units": {
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            },
+            "mime_type": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "nonce": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "required": [
+            "resource",
+            "provider_id",
+            "amount_base_units"
+          ],
+          "additionalProperties": false,
+          "description": "Request a PrivatePAY x402 V2 PaymentRequired object. This is unavailable until a reviewed confidential privacy rail is configured."
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "privatepay_prepare",
+        "title": "PrivateDAO privatepay_prepare",
+        "description": "Prepare a real unsigned MagicBlock private transfer after a PrivatePAY challenge. The agent must inspect it and sign locally; PrivateDAO never receives a private key and this tool never broadcasts.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "pattern": "^pp_[a-f0-9]{32}$"
+            },
+            "payer": {
+              "type": "string",
+              "pattern": "^[1-9A-HJ-NP-Za-km-z]{32,44}$"
+            },
+            "amount_base_units": {
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            },
+            "split": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 15
+            },
+            "gasless": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "request_id",
+            "payer",
+            "amount_base_units"
+          ],
+          "additionalProperties": false,
+          "description": "Prepare a real MagicBlock private transfer transaction for the buyer to inspect and sign. This does not sign or broadcast."
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "privatepay_verify",
+        "title": "PrivateDAO privatepay_verify",
+        "description": "Verify an x402 v2 PrivatePAY payload through the configured facilitator. This is fail-closed until exact scheme and network conformance is independently verified.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "x402Version": {
+              "type": "integer",
+              "const": 2
+            },
+            "paymentPayload": {
+              "type": "object"
+            },
+            "paymentRequirements": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "x402Version",
+            "paymentPayload",
+            "paymentRequirements"
+          ],
+          "additionalProperties": false,
+          "description": "Forward an x402 v2 PrivatePAY payload to the reviewed facilitator. This fails closed until conformance is verified."
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "privatepay_settle",
+        "title": "PrivateDAO privatepay_settle",
+        "description": "Settle an x402 v2 PrivatePAY payload through the configured facilitator. This tool is destructive and remains disabled until production activation is explicitly approved.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "x402Version": {
+              "type": "integer",
+              "const": 2
+            },
+            "paymentPayload": {
+              "type": "object"
+            },
+            "paymentRequirements": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "x402Version",
+            "paymentPayload",
+            "paymentRequirements"
+          ],
+          "additionalProperties": false,
+          "description": "Request x402 v2 PrivatePAY settlement through the reviewed facilitator. This may move funds only after explicit production activation."
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
           "openWorldHint": false
         }
       },
