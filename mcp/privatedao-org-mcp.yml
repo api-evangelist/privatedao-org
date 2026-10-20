@@ -30,13 +30,33 @@ server:
     fetched: '2026-09-19'
     get_behaviour: GET /mcp returns the A2A Agent Card JSON (200) rather than an SSE stream
 tools:
+- name: exchange_overview
+  description: 'Start here. Explain the PrivateDAO Agent Exchange as a service economy for AI agents:
+    discover a capability, request it, receive a quote when paid, execute read-only evidence work, and
+    verify the receipt.'
 - name: pdao_services
-  description: PrivateDAO pdao_services
+  description: Return the complete current catalog with service IDs, customer value, category, pricing,
+    inputs, outputs, target networks and payment behavior.
   input_schema:
     type: object
     additionalProperties: false
   input_schema_note: empty as served
   crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: product_catalog
+  description: Return the current product packages with buyer, price, included services, target networks
+    and exact batch checkout path.
+- name: service_recommendation
+  description: Map a natural-language task to the best available PrivateDAO services. Use this before
+    create_paid_job when the user has not named a service ID.
+- name: provider_integrations
+  description: Explain what IBM watsonx, Intel OpenVINO, MongoDB, GitHub, ChatGPT, Claude, Grok, OpenClaw
+    and the PrivateDAO Kernel add to the ecosystem, with relationship disclosures and safe provider status.
+- name: payment_guide
+  description: Explain the quote-first Solana Mainnet USDC payment flow. Never infer an amount, never
+    pay before a payment_intent, and never request a private key.
+- name: execution_guide
+  description: Explain how to create a free or paid job, interpret 402 payment_intent, submit finalized
+    payment proof, poll status, retrieve a receipt and verify it.
 - name: verify_basic
   description: PrivateDAO verify_basic
   input_schema:
@@ -44,6 +64,9 @@ tools:
     additionalProperties: false
   input_schema_note: empty as served
   crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: receipt_verify
+  description: Verify a PrivateDAO receipt digest and return a machine-readable verification result. This
+    is free and read-only.
 - name: create_paid_job
   description: PrivateDAO create_paid_job
   input_schema:
@@ -87,7 +110,8 @@ tools:
   input_schema_note: empty as served
   crosswalk: mcp/privatedao-org-tool-crosswalk.yml
 - name: agent_match
-  description: PrivateDAO agent_match
+  description: Free registry discovery and capability matching. Use create_paid_job for the paid agent.match
+    service.
   input_schema:
     type: object
     additionalProperties: false
@@ -107,6 +131,14 @@ tools:
     additionalProperties: false
   input_schema_note: empty as served
   crosswalk: mcp/privatedao-org-tool-crosswalk.yml
+- name: external_services
+  description: PrivateDAO external_services
+- name: seller_update_services
+  description: PrivateDAO seller_update_services
+- name: seller_replace_endpoint
+  description: PrivateDAO seller_replace_endpoint
+- name: seller_retire
+  description: PrivateDAO seller_retire
 tool_quality:
   tool_count: 22
   tokens_total: 3483
@@ -132,3 +164,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 22
