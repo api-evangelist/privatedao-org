@@ -27,7 +27,13 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/privatedao-org-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-19T193153.yml:
@@ -60,6 +66,21 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/privatedao-org-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -69,6 +90,9 @@ artifacts:
   llms/privatedao-org-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
+  mcp/privatedao-org-mcp-tools.json:
+    method: unknown
+    evidence: no authorship recorded
   mcp/privatedao-org-mcp.yml:
     method: unknown
     evidence: no authorship recorded
@@ -79,22 +103,68 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/privatedao-org-agent-exchange-openapi.yml:
+    method: harvested
+    evidence: fetched from https://agents.privatedao.org/openapi.json (recorded in the document)
   openapi/_original/privatedao-org-blind-policy-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
-  openapi/privatedao-org-agent-exchange-openapi.yml:
+    evidence: byte-identical to https://privatedao.org/blind-policy-openapi.json (sha256 c283de2d2082,
+      fetched 2026-10-04)
+  openapi/_original/privatedao-org-blind-policy-openapi.yml:
+    method: harvested
+    evidence: the same operations as https://privatedao.org/blind-policy-openapi.json (sha256 c283de2d2082,
+      fetched 2026-10-04)
+  openapi/privatedao-org-acquisition-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/privatedao-org-blind-policy-openapi.yml:
+  openapi/privatedao-org-agreements-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-discovery-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-health-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-jobs-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-logistics-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-marketplace-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-pricing-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-proof-workflows-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-receipts-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-referrals-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-registry-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-revenue-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-services-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/privatedao-org-treasury-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   overlays/privatedao-org-agent-exchange-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/privatedao-org-blind-policy-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/privatedao-org-packages.yml:
     method: searched
     evidence: declared in the artifact
